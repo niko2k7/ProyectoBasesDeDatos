@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.AdminController">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox spacing="10" style="-fx-background-color: #2c3e50;" alignment="CENTER_RIGHT" padding="10">
+            <Label text="Base de Datos: museo_bd" style="-fx-text-fill: white;" />
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="labelUsuario" text="Admin" style="-fx-text-fill: white;"/>
+            <ImageView fx:id="userImage" fitHeight="32" fitWidth="32"/>
+        </HBox>
+    </top>
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #34495e;" prefWidth="200" padding="20">
+            <Button text="Actores" onAction="#handleMenuAction" />
+            <Button text="Productos" onAction="#handleMenuAction" />
+            <Button text="Ventas" onAction="#handleMenuAction" />
+            <Button text="Compras" onAction="#handleMenuAction" />
+            <Button text="Pagos" onAction="#handleMenuAction" />
+            <Button text="Herramientas" onAction="#handleMenuAction" />
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <StackPane fx:id="mainContent">
+            <Label text="Bienvenido al sistema" />
+        </StackPane>
+    </center>
+</BorderPane>
