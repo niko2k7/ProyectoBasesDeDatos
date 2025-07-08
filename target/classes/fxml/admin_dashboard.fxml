@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AdminController">
+
+    <left>
+        <VBox spacing="10" style="-fx-padding:10;">
+            <Button text="Usuarios" onAction="#loadUsuarios"/>
+            <Button text="Productos" onAction="#loadProductos"/>
+            <Button text="Salir" onAction="#logout"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentPane" />
+    </center>
+
+</BorderPane>
