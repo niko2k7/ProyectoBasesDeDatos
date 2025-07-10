@@ -58,12 +58,12 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </VBox>
-            <Label fx:id="messageLabel">
+            <Label fx:id="messageLabel" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" text="Iniciar sesión">
+            <Button mnemonicParsing="false" onAction="#onClickIngresar" text="Iniciar sesión">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

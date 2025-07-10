@@ -8,9 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
-import javafx.scene.*;
-import javafx.fxml.*;
-import javafx.stage.*;
 
 public class LoginController {
     @FXML private TextField usernameField;
@@ -18,7 +15,7 @@ public class LoginController {
     @FXML private Label messageLabel;
 
     @FXML
-    private void onIngresarClick(ActionEvent event) {
+    private void onClickIngresar(ActionEvent event) {
         String usuario = usernameField.getText();
         String contrasena = passwordField.getText();
         handleConnection(usuario, contrasena);
@@ -47,7 +44,7 @@ public class LoginController {
         } else {
             // Falló la conexión
             messageLabel.setVisible(true);
-            messageLabel.setText("Usuario o contraseña incorrectos.");
+            messageLabel.setText("Usuario o contraseña incorrectos. Intente nuevamente");
         }
     }
     
