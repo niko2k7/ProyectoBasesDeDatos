@@ -8,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class LoginController {
     @FXML private TextField usernameField;
@@ -32,13 +35,20 @@ public class LoginController {
 
             // Aquí podrías cargar la siguiente escena
             // loadAdminScene();
-
-            // Si quieres cerrar conexión inmediatamente:
+            // CAMBIAR A LA NUEVA ESCENA
             try {
-                conn.close();
-                System.out.println("Conexion cerrada");
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventas_main.fxml"));
+                Scene nuevaEscena = new Scene(loader.load());
+
+                // Obtener el Stage actual desde el TextField o cualquier nodo
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                stage.setTitle("Panel de Ventas");
+                stage.setScene(nuevaEscena);
+                stage.show();
+                stage.centerOnScreen();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error al cargar la nueva escena.");
             }
 
         } else {

@@ -16,6 +16,7 @@ public class App extends Application {
             stage.setTitle("Login");
             stage.setScene(scene);
             stage.show();
+            stage.centerOnScreen();
             
         } catch (Exception e) {
             e.printStackTrace();
