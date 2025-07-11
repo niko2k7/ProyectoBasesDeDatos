@@ -14,7 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release> <!-- Ajusta a tu JDK -->
-        <javafx.version>21</javafx.version>
+        <javafx.version>23.0.1</javafx.version>
     </properties>
 
     <dependencies>
@@ -32,9 +32,9 @@
 
         <!-- MySQL Connector -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.3.0</version>
         </dependency>
     </dependencies>
 
