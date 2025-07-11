@@ -16,14 +16,14 @@ USE proyecto_base_datos;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS ACTOR;
 CREATE TABLE IF NOT EXISTS ACTOR (
-  act_documento 		INT NOT NULL COMMENT 'Cedula que tiene toda persona (o NIT en caso de empresa)',
-  act_tipo 				ENUM('CLIENTE', 'EMPLEADO', 'PROVEEDOR') NOT NULL COMMENT 'Funciona como discriminador de tipo, es decir, para dictar si el actor es un cliente, empleado o proveedor.',
-  act_nombre 			VARCHAR(45) NOT NULL COMMENT 'Nombre de la persona o empresa',
-  act_direccion 		VARCHAR(45) NOT NULL COMMENT 'Direccion de la persona o empresa',
-  act_telefono 			VARCHAR(13) NOT NULL COMMENT 'Telefono de la persona o empresa',
-  act_correo 			VARCHAR(45) NOT NULL UNIQUE COMMENT 'Correo de la persona o empresa',
-  act_estado_juridico 	ENUM('NATURAL', 'JURIDICA') NOT NULL COMMENT 'Estado juridico de la persona o empresa: natural o juridica. Lo ideal seria usar un ENUM',
-  PRIMARY KEY (act_documento)
+	act_documento 		INT NOT NULL COMMENT 'Cedula que tiene toda persona (o NIT en caso de empresa)',
+	act_tipo 			ENUM('CLIENTE', 'EMPLEADO', 'PROVEEDOR') NOT NULL COMMENT 'Funciona como discriminador de tipo, es decir, para dictar si el actor es un cliente, empleado o proveedor.',
+	act_nombre 			VARCHAR(45) NOT NULL COMMENT 'Nombre de la persona o empresa',
+	act_direccion 		VARCHAR(45) NOT NULL COMMENT 'Direccion de la persona o empresa',
+	act_telefono 		VARCHAR(13) NOT NULL COMMENT 'Telefono de la persona o empresa',
+	act_correo 			VARCHAR(45) NOT NULL UNIQUE COMMENT 'Correo de la persona o empresa',
+	act_estado_juridico ENUM('NATURAL', 'JURIDICA') NOT NULL COMMENT 'Estado juridico de la persona o empresa: natural o juridica. Lo ideal seria usar un ENUM',
+	PRIMARY KEY (act_documento)
 );
 
 
@@ -32,11 +32,11 @@ CREATE TABLE IF NOT EXISTS ACTOR (
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS CLIENTE;
 CREATE TABLE IF NOT EXISTS CLIENTE(
-  act_documento 	INT NOT NULL,
+	act_documento 	INT NOT NULL,
   
-  PRIMARY KEY(act_documento),
-  FOREIGN KEY (act_documento) REFERENCES ACTOR (act_documento)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+	PRIMARY KEY(act_documento),
+	FOREIGN KEY (act_documento) REFERENCES ACTOR (act_documento)
+	ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -46,11 +46,11 @@ CREATE TABLE IF NOT EXISTS CLIENTE(
 DROP TABLE IF EXISTS PROVEEDOR ;
 
 CREATE TABLE IF NOT EXISTS PROVEEDOR (
-  act_documento INT NOT NULL,
+	act_documento INT NOT NULL,
   
-  PRIMARY KEY (act_documento),
-  FOREIGN KEY (act_documento) REFERENCES ACTOR (act_documento)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+	PRIMARY KEY (act_documento),
+	FOREIGN KEY (act_documento) REFERENCES ACTOR (act_documento)
+    ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -60,12 +60,12 @@ CREATE TABLE IF NOT EXISTS PROVEEDOR (
 DROP TABLE IF EXISTS EMPLEADO ;
 
 CREATE TABLE IF NOT EXISTS EMPLEADO (
-  act_documento 	INT NOT NULL,
-  emp_puesto 		VARCHAR(45) NOT NULL COMMENT 'Puesto que representa la funcion del empleado',
+	act_documento 	INT NOT NULL,
+	emp_puesto 		VARCHAR(45) NOT NULL COMMENT 'Puesto que representa la funcion del empleado',
   
-  PRIMARY KEY (act_documento),
-  FOREIGN KEY (act_documento) REFERENCES ACTOR (act_documento)
-  ON DELETE NO ACTION ON UPDATE NO ACTION
+	PRIMARY KEY (act_documento),
+	FOREIGN KEY (act_documento) REFERENCES ACTOR (act_documento)
+		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -75,15 +75,15 @@ CREATE TABLE IF NOT EXISTS EMPLEADO (
 DROP TABLE IF EXISTS HORARIO_EMPLEADO ;
 
 CREATE TABLE IF NOT EXISTS HORARIO_EMPLEADO (
-  hor_id 					INT NOT NULL COMMENT 'Id del horario que se asignara a cada empleado',
-  act_documento 			INT NOT NULL,
-  hor_num_dias_laborales 	TINYINT NOT NULL COMMENT 'Cuantos dias trabaja el empleado',
-  hor_hora_inicio 			TIME NOT NULL COMMENT 'Hora en que inicia la jornada laboral',
-  hor_hora_fin 				TIME NOT NULL COMMENT 'Hora en que acaba la jornada laboral',
+	hor_id 					INT NOT NULL COMMENT 'Id del horario que se asignara a cada empleado',
+	act_documento 			INT NOT NULL,
+	hor_num_dias_laborales 	TINYINT NOT NULL COMMENT 'Cuantos dias trabaja el empleado',
+	hor_hora_inicio 			TIME NOT NULL COMMENT 'Hora en que inicia la jornada laboral',
+	hor_hora_fin 				TIME NOT NULL COMMENT 'Hora en que acaba la jornada laboral',
   
-  PRIMARY KEY (hor_id, act_documento),
-  FOREIGN KEY (act_documento) REFERENCES EMPLEADO (act_documento)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+	PRIMARY KEY (hor_id, act_documento),
+	FOREIGN KEY (act_documento) REFERENCES EMPLEADO (act_documento)
+		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -93,11 +93,11 @@ CREATE TABLE IF NOT EXISTS HORARIO_EMPLEADO (
 DROP TABLE IF EXISTS PRODUCTO;
 
 CREATE TABLE IF NOT EXISTS PRODUCTO (
-  prod_id 		INT NOT NULL AUTO_INCREMENT COMMENT 'Id unico que sirve para identificar el producto',
-  prod_tipo 	ENUM('ARTICULO', 'SERVICIO') NOT NULL COMMENT 'Funciona como discriminador de tipo, es decir, dicta si el producto es un servicio o un articulo. Lo ideal seria usar un ENUM',
-  prod_precio 	DECIMAL(10,2) NOT NULL COMMENT 'Precio del producto',
+	prod_id 		INT NOT NULL AUTO_INCREMENT COMMENT 'Id unico que sirve para identificar el producto',
+	prod_tipo 	ENUM('ARTICULO', 'SERVICIO') NOT NULL COMMENT 'Funciona como discriminador de tipo, es decir, dicta si el producto es un servicio o un articulo. Lo ideal seria usar un ENUM',
+	prod_precio 	DECIMAL(10,2) NOT NULL COMMENT 'Precio del producto',
   
-  PRIMARY KEY (prod_id)
+	PRIMARY KEY (prod_id)
 );
 
 
@@ -107,15 +107,15 @@ CREATE TABLE IF NOT EXISTS PRODUCTO (
 DROP TABLE IF EXISTS FACTURA_VENTA;
 
 CREATE TABLE IF NOT EXISTS FACTURA_VENTA (
-  fven_codigo 		INT NOT NULL AUTO_INCREMENT COMMENT 'Codigo unico para identificar cada factura',
-  fven_fecha 		DATE NOT NULL COMMENT 'Fecha en que se genera la factura',
-  fven_total 		DECIMAL(10,2) NOT NULL COMMENT 'Valor total a pagar',
-  fven_metodo_pago 	VARCHAR(45) NOT NULL COMMENT 'Metodo de pago usado al pagar',
-  act_documento 	INT NOT NULL,
+	fven_codigo 		INT NOT NULL AUTO_INCREMENT COMMENT 'Codigo unico para identificar cada factura',
+	fven_fecha 		DATE NOT NULL COMMENT 'Fecha en que se genera la factura',
+	fven_total 		DECIMAL(10,2) NOT NULL COMMENT 'Valor total a pagar',
+	fven_metodo_pago 	VARCHAR(45) NOT NULL COMMENT 'Metodo de pago usado al pagar',
+	act_documento 	INT NOT NULL,
   
-  PRIMARY KEY (fven_codigo),
-  FOREIGN KEY (act_documento) REFERENCES CLIENTE (act_documento)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+	PRIMARY KEY (fven_codigo),
+	FOREIGN KEY (act_documento) REFERENCES CLIENTE (act_documento)
+		ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -125,17 +125,17 @@ CREATE TABLE IF NOT EXISTS FACTURA_VENTA (
 DROP TABLE IF EXISTS DETALLE_FACTURA_VENTA;
 
 CREATE TABLE IF NOT EXISTS DETALLE_FACTURA_VENTA (
-  fven_codigo 			INT NOT NULL,
-  prod_id				INT NOT NULL,
-  dfv_cantidad 			INT NOT NULL COMMENT 'Cantidad comprada de un producto por un cliente',
-  dfv_precio_unitario 	DECIMAL(10,2) NOT NULL COMMENT 'Precio unitario del producto',
-  dfv_subtotal 			DECIMAL(10,2) NOT NULL COMMENT 'Subtotal que sale de cantidad*precio_unitario',
+	fven_codigo 			INT NOT NULL,
+	prod_id				INT NOT NULL,
+	dfv_cantidad 			INT NOT NULL COMMENT 'Cantidad comprada de un producto por un cliente',
+	dfv_precio_unitario 	DECIMAL(10,2) NOT NULL COMMENT 'Precio unitario del producto',
+	dfv_subtotal 			DECIMAL(10,2) NOT NULL COMMENT 'Subtotal que sale de cantidad*precio_unitario',
   
-  PRIMARY KEY (fven_codigo, prod_id),
-  FOREIGN KEY (fven_codigo) REFERENCES FACTURA_VENTA (fven_codigo)
-    ON DELETE NO ACTION ON UPDATE NO ACTION,
-  FOREIGN KEY (prod_id) REFERENCES PRODUCTO (prod_id)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+	PRIMARY KEY (fven_codigo, prod_id),
+	FOREIGN KEY (fven_codigo) REFERENCES FACTURA_VENTA (fven_codigo)
+		ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (prod_id) REFERENCES PRODUCTO (prod_id)
+		ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS FACTURA_COMPRA (
   
   PRIMARY KEY (fcom_codigo),
   FOREIGN KEY (act_documento) REFERENCES PROVEEDOR (act_documento)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS PAGO_SALARIO (
   
   PRIMARY KEY (pag_numero_pago),
   FOREIGN KEY (act_documento) REFERENCES EMPLEADO (act_documento)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -355,6 +355,7 @@ CREATE TABLE IF NOT EXISTS PLAZO_PAGO (
   plpag_estado_pago 		ENUM('PAGADO', 'EN CURSO', 'VENCIDO') NOT NULL COMMENT 'Estado del pago: Pagado, Vencido, o En Curso. Lo ideal seria usasr un ENUM',
   plpag_fecha_pago_final 	DATE NULL COMMENT 'Fecha en que la empresa pago en su totalidad la cuenta por pagar',
   
+
   PRIMARY KEY (plpag_id, cxp_id_cuenta),
   FOREIGN KEY (cxp_id_cuenta) REFERENCES CUENTA_POR_PAGAR (cxp_id_cuenta)
     ON DELETE NO ACTION ON UPDATE NO ACTION

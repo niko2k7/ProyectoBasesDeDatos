@@ -1,14 +1,15 @@
 USE proyecto_base_datos;
--- ALGUNOS EJEMPLOS DE UPDATE QUE PODRÍAN SER ÚTILES (deletes al acabar los updates)
+-- ALGUNOS EJEMPLOS DE UPDATE QUE PODRÍAN SER ÚTILES 
 
 -- -----------------------------------------------------
 -- Tabla ACTOR
 -- -----------------------------------------------------
-# Actualiza el número de teléfono de actor
+UPDATE ACTOR SET act_documento = '1122923772' WHERE act_documento = 1122123771;
+UPDATE ACTOR SET act_nombre = 'nombre' WHERE act_documento = 1122123771;
+UPDATE ACTOR SET act_direccion = 'direccion' WHERE act_documento = 1122123771;
 UPDATE ACTOR SET act_telefono = '3201234567' WHERE act_documento = 1122123771;
+UPDATE ACTOR SET act_correo = 'correo' WHERE act_documento = 1122123771;
 
-# Actualiza el correo electrónico de actor
-UPDATE ACTOR SET act_correo = 'nuevoemail@empresa.com' WHERE act_documento = 50919912;
 
 -- -----------------------------------------------------
 -- Tabla CLIENTE
