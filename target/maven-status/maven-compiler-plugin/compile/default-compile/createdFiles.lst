@@ -1,8 +1,0 @@
-DataBase\DataBaseConnection.class
-controllers\VentasController.class
-controllers\AdminController.class
-controllers\GerenteController.class
-Main\App.class
-controllers\ContabilidadController.class
-controllers\AlmacenTallerController.class
-controllers\LoginController.class
