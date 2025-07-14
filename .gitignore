@@ -1,6 +1,8 @@
 # Maven
 /target/
 
+dependency-reduced-pom.xml
+
 # NetBeans
 nbproject/private/
 nbactions.xml
