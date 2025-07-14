@@ -13,7 +13,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml")); 
             Scene scene = new Scene(loader.load());
             
-            stage.setTitle("Login");
+            stage.setTitle("Logingin");
             stage.setScene(scene);
             stage.show();
             stage.centerOnScreen();
