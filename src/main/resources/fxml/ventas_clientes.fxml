@@ -32,13 +32,13 @@
          <children>
             <TableView prefHeight="414.0" prefWidth="634.0">
               <columns>
-                <TableColumn prefWidth="95.0" text="Documento" />
-                  <TableColumn prefWidth="113.0" text="Nombre" />
+                <TableColumn prefWidth="84.0" resizable="false" text="Documento" />
+                  <TableColumn prefWidth="124.0" text="Nombre" />
                   <TableColumn prefWidth="111.0" text="Dirección" />
-                  <TableColumn prefWidth="105.0" text="Teléfono" />
-                  <TableColumn prefWidth="112.0" text="Correo" />
-                  <TableColumn prefWidth="114.0" text="Estado juríco" />
-                  <TableColumn prefWidth="133.0" text="Acción" />
+                  <TableColumn prefWidth="99.0" text="Teléfono" />
+                  <TableColumn prefWidth="118.0" text="Correo" />
+                  <TableColumn minWidth="0.0" prefWidth="106.0" text="Estado juríco" />
+                  <TableColumn prefWidth="111.0" text="Acción" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
