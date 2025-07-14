@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 public class DataBaseConnection {
     
-    private static String bd = "museo_bd";
+    private static String bd = "proyecto_base_datos";
     private static String host = "localhost";
     private static String server = "jdbc:mysql://" + host + "/" + bd + "?serverTimezone=UTC";
-
+    private static Connection conexion = null;
+    
     public static Connection connect(String user, String password) {
-        Connection conexion = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(server, user, password);
@@ -23,5 +23,22 @@ public class DataBaseConnection {
             System.out.println("SQLException: " + ex.getMessage());
         }
         return conexion;
+    }
+    
+    public static Connection getActiveConnection() {
+        return conexion;
+    }
+    
+    public static void disconnect() {
+        if (conexion != null) {
+            try {
+                conexion.close();
+                System.out.println("Conexion cerrada correctamente... OK");
+                conexion = null;
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión.");
+                e.printStackTrace();
+            }
+        }
     }
 }

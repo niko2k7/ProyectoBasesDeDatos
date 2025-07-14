@@ -1,59 +1,64 @@
 package Controllers;
 
+import DataBase.DataBaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import Controllers.LoginController;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class VentasController {
 
     @FXML
-    private StackPane contentPane;
+    private BorderPane mainBorderPane;
 
-    @FXML
-    private void loadUsuarios() {
-        loadUI("/usuarios.fxml");
-    }
-
-    @FXML
-    private void loadProductos() {
-        loadUI("/productos.fxml");
-    }
-
-    @FXML
-    private void logout() {
+    private void cargarVista(String archivoFXML) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) contentPane.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Login");
-            stage.show();
-//            try {
-//                LoginController.conn.close();
-//                System.out.println("Conexion cerrada");
-//            } catch (SQLException e) {
-//                System.out.println("Error al cerrar la conexión");
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadUI(String fxml) {
-        try {
-            Pane pane = FXMLLoader.load(getClass().getResource(fxml));
-            contentPane.getChildren().setAll(pane);
+            Node nuevaVista = FXMLLoader.load(getClass().getResource("/fxml/" + archivoFXML));
+            mainBorderPane.setCenter(nuevaVista);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    private void handleMenuAction(){
-        
+    @FXML
+    public void initialize() {
+        cargarVista("ventas_main_content.fxml");
     }
 
+    @FXML
+    private void cargarVistaClientes() {
+        cargarVista("ventas_clientes.fxml");
+    }
+
+    @FXML
+    private void cargarVistaProductos() {
+        cargarVista("ventas_productos.fxml");
+    }
+
+    @FXML
+    private void cargarVistaFacturas() {
+        cargarVista("ventas_facturas.fxml");
+    }
+
+    @FXML
+    private void cargarLogin() {
+        try {
+        DataBaseConnection.disconnect();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        Scene loginScene = new Scene(loader.load());
+
+        // Obtener el Stage actual desde el BorderPane
+        Stage stage = (Stage) mainBorderPane.getScene().getWindow();
+        stage.setTitle("Login");
+        stage.setScene(loginScene);
+        stage.centerOnScreen();
+        stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No se pudo volver al login.");
+        }
+    }
 }

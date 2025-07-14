@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasController">
    <top>
       <GridPane prefHeight="50.0" style="-fx-background-color: #E5E4E2;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -48,42 +47,17 @@
          <children>
             <VBox prefHeight="667.0" prefWidth="150.0">
                <children>
-                  <ToggleButton alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Main">
+                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#cargarVistaClientes" prefWidth="200.0" selected="true" style="-fx-background-color: transparent;" text="Clientes">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Dashboard">
+                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#cargarVistaProductos" prefWidth="200.0" style="-fx-background-color: transparent;" text="Productos">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Actores">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Productos">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="142.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Ventas">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="186.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Compras">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="230.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Pagos">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Herramientas">
+                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="142.0" mnemonicParsing="false" onAction="#cargarVistaFacturas" prefWidth="200.0" style="-fx-background-color: transparent;" text="Facturas">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -92,7 +66,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="74.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Button minWidth="-Infinity" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: transparent;" text="Log Out" textAlignment="CENTER">
+                  <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#cargarLogin" prefWidth="200.0" style="-fx-background-color: transparent;" text="Log Out" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -102,4 +76,7 @@
          </children>
       </GridPane>
    </left>
+   
+   <center>
+   </center>
 </BorderPane>
