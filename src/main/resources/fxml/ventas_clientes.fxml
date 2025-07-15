@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasClientesController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.3333129882812" minWidth="10.0" prefWidth="266.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="821.3333435058594" minWidth="10.0" prefWidth="814.0" />
@@ -29,18 +29,18 @@
           <RowConstraints maxHeight="710.0" minHeight="10.0" prefHeight="660.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="414.0" prefWidth="634.0">
+            <TableView fx:id="tablaClientes" prefHeight="414.0" prefWidth="634.0">
               <columns>
-                <TableColumn prefWidth="84.0" resizable="false" text="Documento" />
-                  <TableColumn prefWidth="124.0" text="Nombre" />
-                  <TableColumn prefWidth="111.0" text="Dirección" />
-                  <TableColumn prefWidth="99.0" text="Teléfono" />
-                  <TableColumn prefWidth="118.0" text="Correo" />
-                  <TableColumn minWidth="0.0" prefWidth="106.0" text="Estado juríco" />
-                  <TableColumn prefWidth="111.0" text="Acción" />
+                <TableColumn fx:id="colDocumento" prefWidth="77.0" resizable="false" text="Documento" />
+                  <TableColumn fx:id="colNombre" prefWidth="99.0" text="Nombre" />
+                  <TableColumn fx:id="colDireccion" prefWidth="111.0" text="Dirección" />
+                  <TableColumn fx:id="colTelefono" prefWidth="93.0" text="Teléfono" />
+                  <TableColumn fx:id="colCorreo" prefWidth="156.0" text="Correo" />
+                  <TableColumn fx:id="colEstadoJuridico" minWidth="0.0" prefWidth="88.0" text="Estado jurídico" />
+                  <TableColumn fx:id="colAccion" prefWidth="159.0" text="Acción" />
               </columns>
                <GridPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+                  <Insets />
                </GridPane.margin>
             </TableView>
          </children>
@@ -67,23 +67,23 @@
                   <VBox>
                      <children>
                         <Label text="Documento" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="actualizarClienteDocumento" promptText="Ej 1122923772" editable="false"/>
                         <Label text="Nombre" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="actualizarClienteNombre" promptText="Ej 1122923772" />
                         <Label text="Direccion" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="actualizarClienteDireccion" promptText="Ej 1122923772" />
                         <Label text="Telefono" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="actualizarClienteTelefono" promptText="Ej 1122923772" />
                         <Label text="Correo" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="actualizarClienteCorreo" promptText="Ej 1122923772" />
                         <Label text="Estado juridico" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="actualizarClienteEstadoJuridico" promptText="Ej 1122923772" />
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <Button mnemonicParsing="false" text="Actualizar cliente">
+                  <Button mnemonicParsing="false" onAction="#actualizarCliente" text="Actualizar cliente">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
@@ -108,23 +108,23 @@
                   <VBox>
                      <children>
                         <Label text="Documento" />
-                        <TextField promptText="Ej 1122923772" />
+                        <TextField fx:id="crearClienteDocumento" promptText="Ej 1122923772" />
                         <Label text="Nombre" />
-                        <TextField promptText="Ej Nicolás Aguirre Velásquez" />
+                        <TextField fx:id="crearClienteNombre" promptText="Ej Nicolás Aguirre Velásquez" />
                         <Label text="Direccion" />
-                        <TextField promptText="Ej Calle 54 #23-26" />
+                        <TextField fx:id="crearClienteDireccion" promptText="Ej Calle 54 #23-26" />
                         <Label text="Telefono" />
-                        <TextField promptText="Ej 3143138542" />
+                        <TextField fx:id="crearClienteTelefono" promptText="Ej 3143138542" />
                         <Label text="Correo" />
-                        <TextField promptText="Ej niaguirrev@unal.edu.co" />
+                        <TextField fx:id="crearClienteCorreo" promptText="Ej niaguirrev@unal.edu.co" />
                         <Label text="Estado juridico" />
-                        <TextField promptText="Ej NATURAL" />
+                        <TextField fx:id="crearClienteEstadoJuridico" promptText="Ej NATURAL" />
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <Button mnemonicParsing="false" text="Crear cliente">
+                  <Button mnemonicParsing="false" onAction="#crearCliente" text="Crear cliente">
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
