@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasProductosController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="537.3999572753906" minWidth="10.0" prefWidth="312.33330688476565" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="969.0667068481447" minWidth="10.0" prefWidth="767.4666931152345" />
@@ -24,14 +24,14 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <TableView prefHeight="386.0" prefWidth="540.0">
+            <TableView fx:id="tablaArticulos" prefHeight="386.0" prefWidth="540.0">
               <columns>
-                <TableColumn prefWidth="54.93325650691986" text="ID" />
-                <TableColumn prefWidth="124.80005264282227" text="Tipo" />
-                  <TableColumn prefWidth="103.19990539550781" text="Marca" />
-                  <TableColumn prefWidth="104.80009460449219" text="Modelo" />
-                  <TableColumn prefWidth="124.26666259765625" text="Precio" />
-                  <TableColumn prefWidth="128.2667236328125" text="Stock" />
+                <TableColumn fx:id="colArticuloId" prefWidth="54.93325650691986" text="ID" />
+                <TableColumn fx:id="colArticuloTipo" prefWidth="124.80005264282227" text="Tipo" />
+                  <TableColumn fx:id="colArticuloMarca" prefWidth="103.19990539550781" text="Marca" />
+                  <TableColumn fx:id="colArticuloModelo" prefWidth="104.80009460449219" text="Modelo" />
+                  <TableColumn fx:id="colArticuloPrecio" prefWidth="124.26666259765625" text="Precio" />
+                  <TableColumn fx:id="colArticuloStock" prefWidth="128.2667236328125" text="Stock" />
                   <TableColumn prefWidth="99.20025634765625" text="Acción" />
               </columns>
             </TableView>
@@ -47,12 +47,12 @@
                   <Font name="System Bold Italic" size="16.0" />
                </font>
             </Label>
-            <TableView prefHeight="386.0" prefWidth="540.0">
+            <TableView fx:id="tablaServicios" prefHeight="386.0" prefWidth="540.0">
                <columns>
-                  <TableColumn prefWidth="118.13330382108688" text="ID" />
-                  <TableColumn prefWidth="132.53335571289062" text="Nombre" />
-                  <TableColumn prefWidth="160.2666473388672" text="Precio" />
-                  <TableColumn prefWidth="328.53350830078125" text="Empleado asociado" />
+                  <TableColumn fx:id="colServicioId" prefWidth="118.13330382108688" text="ID" />
+                  <TableColumn fx:id="colServicioNombre" prefWidth="132.53335571289062" text="Nombre" />
+                  <TableColumn fx:id="colServicioPrecio" prefWidth="160.2666473388672" text="Precio" />
+                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="328.53350830078125" text="Empleado asociado" />
                </columns>
                <VBox.margin>
                   <Insets />
@@ -73,14 +73,14 @@
             <VBox>
                <children>
                   <Label text="Nombre" />
-                  <TextField promptText="Ej 1122923772" />
+                  <TextField fx:id="txtBuscarArticulo" promptText="Ej 1122923772" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </VBox>
             <VBox />
-            <Button mnemonicParsing="false" text="Buscar" />
+            <Button mnemonicParsing="false" onAction="#buscarArticulo" text="Buscar" />
             <Label fx:id="messageLabel" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />

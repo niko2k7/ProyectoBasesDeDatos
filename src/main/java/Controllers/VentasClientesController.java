@@ -50,13 +50,13 @@ public class VentasClientesController {
 
 
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
+    
 
     @FXML
     public void initialize() {
         configurarColumnas();
         configurarColumnaAccion();
-        cargarDatosDesdeBD();
-        
+        cargarDatosDesdeBD(); 
     }
 
     private void configurarColumnas() {
