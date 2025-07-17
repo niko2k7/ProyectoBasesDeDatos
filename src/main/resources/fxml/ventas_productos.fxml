@@ -31,8 +31,8 @@
                   <TableColumn fx:id="colArticuloMarca" prefWidth="103.19990539550781" text="Marca" />
                   <TableColumn fx:id="colArticuloModelo" prefWidth="104.80009460449219" text="Modelo" />
                   <TableColumn fx:id="colArticuloPrecio" prefWidth="124.26666259765625" text="Precio" />
-                  <TableColumn fx:id="colArticuloStock" prefWidth="128.2667236328125" text="Stock" />
-                  <TableColumn prefWidth="99.20025634765625" text="Acción" />
+                  <TableColumn fx:id="colArticuloStock" prefWidth="77.60003662109375" text="Stock" />
+                  <TableColumn prefWidth="144.7999267578125" text="Acción" />
               </columns>
             </TableView>
          </children>
@@ -52,7 +52,7 @@
                   <TableColumn fx:id="colServicioId" prefWidth="118.13330382108688" text="ID" />
                   <TableColumn fx:id="colServicioNombre" prefWidth="132.53335571289062" text="Nombre" />
                   <TableColumn fx:id="colServicioPrecio" prefWidth="160.2666473388672" text="Precio" />
-                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="328.53350830078125" text="Empleado asociado" />
+                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="328.53350830078125" text="EmpleadoAsociado" />
                </columns>
                <VBox.margin>
                   <Insets />

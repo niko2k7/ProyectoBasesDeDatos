@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 import DataBase.DataBaseConnection;
 import Models.Articulo;
+import Models.Servicio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,27 +25,29 @@ public class VentasProductosController {
     @FXML private TableColumn<Articulo, String> colArticuloStock;
     @FXML private TableColumn<Articulo, Void> colAccionArticulos;
 
-    // @FXML private TableView<Servicio> tablaServicios;
-    // @FXML private TableColumn<Servicio, String> colServicioId;
-    // @FXML private TableColumn<Servicio, String> colServicioNombre;
-    // @FXML private TableColumn<Servicio, String> colServicioPrecio;
-    // @FXML private TableColumn<Servicio, String> colServicioEmpleadoAsociado;
-    // @FXML private TableColumn<Servicio, Void> colAccionServProducto;
+    @FXML private TableView<Servicio> tablaServicios;
+    @FXML private TableColumn<Servicio, String> colServicioId;
+    @FXML private TableColumn<Servicio, String> colServicioNombre;
+    @FXML private TableColumn<Servicio, String> colServicioPrecio;
+    @FXML private TableColumn<Servicio, String> colServicioEmpleadoAsociado;
+    @FXML private TableColumn<Servicio, Void> colAccionServProducto;
 
     @FXML private TextField txtBuscarArticulo;
 
 
     private ObservableList<Articulo> listaArticulos = FXCollections.observableArrayList();
-    // private ObservableList<Servicio> listaServicios = FXCollections.observableArrayList();
+    private ObservableList<Servicio> listaServicios = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        configurarColumnasTablaArticulo();
+        configurarColumnasTablaArticulos();
         cargarDatosArticuloDesdeBD(); 
+        configurarColumnasTablaServicios();
+        cargarDatosServicioDesdeBD(); 
         // configurarColumnaAccion();
     }
 
-    private void configurarColumnasTablaArticulo() {
+    private void configurarColumnasTablaArticulos() {
         colArticuloId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colArticuloTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         colArticuloMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
@@ -53,7 +56,7 @@ public class VentasProductosController {
         colArticuloStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
     }
 
-     private void cargarDatosArticuloDesdeBD() {
+    private void cargarDatosArticuloDesdeBD() {
         listaArticulos.clear();
 
         try {
@@ -83,9 +86,44 @@ public class VentasProductosController {
         }
     }
 
-    @FXML
-    private void BuscarArticulo(){
-        
+    private void configurarColumnasTablaServicios() {
+        colServicioId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colServicioNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colServicioPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colServicioEmpleadoAsociado.setCellValueFactory(new PropertyValueFactory<>("empleadoasociado"));
     }
 
+    private void cargarDatosServicioDesdeBD() {
+        listaServicios.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            // Usar
+                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
+                // ResultSet = stmt.executeQuery();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                "select prod_id, serv_nombre, prod_precio, act_nombre from producto natural join servicio natural join actor");
+
+            while (rs.next()) {
+                Servicio servicio = new Servicio(
+                    rs.getString("prod_id"),
+                    rs.getString("serv_nombre"),
+                    rs.getString("prod_precio"),
+                    rs.getString("act_nombre")
+                );
+                listaServicios.add(servicio);
+            }
+
+            tablaServicios.setItems(listaServicios);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void buscarArticulo(){
+
+    }
 }
