@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -32,8 +33,9 @@ public class VentasProductosController {
     @FXML private TableColumn<Servicio, String> colServicioEmpleadoAsociado;
     @FXML private TableColumn<Servicio, Void> colAccionServProducto;
 
-    @FXML private TextField txtBuscarArticulo;
-
+    @FXML private TextField txtBuscarArticuloTipo;
+    @FXML private TextField txtBuscarArticuloMarca;
+    @FXML private TextField txtBuscarArticuloModelo;
 
     private ObservableList<Articulo> listaArticulos = FXCollections.observableArrayList();
     private ObservableList<Servicio> listaServicios = FXCollections.observableArrayList();
@@ -48,12 +50,12 @@ public class VentasProductosController {
     }
 
     private void configurarColumnasTablaArticulos() {
-        colArticuloId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colArticuloTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
-        colArticuloMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        colArticuloModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-        colArticuloPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colArticuloStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        colArticuloId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        colArticuloTipo.setCellValueFactory(new PropertyValueFactory<>("Tipo"));
+        colArticuloMarca.setCellValueFactory(new PropertyValueFactory<>("Marca"));
+        colArticuloModelo.setCellValueFactory(new PropertyValueFactory<>("Modelo"));
+        colArticuloPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+        colArticuloStock.setCellValueFactory(new PropertyValueFactory<>("Stock"));
     }
 
     private void cargarDatosArticuloDesdeBD() {
@@ -87,10 +89,10 @@ public class VentasProductosController {
     }
 
     private void configurarColumnasTablaServicios() {
-        colServicioId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colServicioNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colServicioPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colServicioEmpleadoAsociado.setCellValueFactory(new PropertyValueFactory<>("empleadoasociado"));
+        colServicioId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        colServicioNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+        colServicioPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
+        colServicioEmpleadoAsociado.setCellValueFactory(new PropertyValueFactory<>("empleadoAsociado"));
     }
 
     private void cargarDatosServicioDesdeBD() {
@@ -121,9 +123,191 @@ public class VentasProductosController {
         }
     }
 
+    // Búsquedas
+    @FXML
+    private void buscarArticuloTipo(){
+        listaArticulos.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            // Usar
+                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
+                // ResultSet = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(
+            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
+            "FROM producto NATURAL JOIN articulo WHERE art_tipo LIKE ?"
+            );
+            stmt.setString(1, "%" + txtBuscarArticuloTipo.getText() + "%"); // Búsqueda parcial
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Articulo articulo = new Articulo(
+                    rs.getString("prod_id"),
+                    rs.getString("art_tipo"),
+                    rs.getString("art_marca"),
+                    rs.getString("art_modelo"),
+                    rs.getString("prod_precio"),
+                    rs.getString("art_cantidad_disponible")
+                );
+                listaArticulos.add(articulo);
+            }
+
+            tablaArticulos.setItems(listaArticulos);
+            txtBuscarArticuloTipo.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
-    private void buscarArticulo(){
+    private void buscarArticuloMarca(){
+        listaArticulos.clear();
 
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            // Usar
+                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
+                // ResultSet = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(
+            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
+            "FROM producto NATURAL JOIN articulo WHERE art_marca LIKE ?"
+            );
+            stmt.setString(1, "%" + txtBuscarArticuloMarca.getText() + "%"); // Búsqueda parcial
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Articulo articulo = new Articulo(
+                    rs.getString("prod_id"),
+                    rs.getString("art_tipo"),
+                    rs.getString("art_marca"),
+                    rs.getString("art_modelo"),
+                    rs.getString("prod_precio"),
+                    rs.getString("art_cantidad_disponible")
+                );
+                listaArticulos.add(articulo);
+            }
+
+            tablaArticulos.setItems(listaArticulos);
+            txtBuscarArticuloMarca.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void buscarArticuloModelo(){
+        listaArticulos.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            // Usar
+                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
+                // ResultSet = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(
+            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
+            "FROM producto NATURAL JOIN articulo WHERE art_modelo LIKE ?"
+            );
+            stmt.setString(1, "%" + txtBuscarArticuloModelo.getText() + "%"); // Búsqueda parcial
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Articulo articulo = new Articulo(
+                    rs.getString("prod_id"),
+                    rs.getString("art_tipo"),
+                    rs.getString("art_marca"),
+                    rs.getString("art_modelo"),
+                    rs.getString("prod_precio"),
+                    rs.getString("art_cantidad_disponible")
+                );
+                listaArticulos.add(articulo);
+            }
+
+            tablaArticulos.setItems(listaArticulos);
+            txtBuscarArticuloModelo.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // Filtros
+    @FXML
+    private void filtrarVerTodos(){
+        cargarDatosArticuloDesdeBD();
+    }
+
+    @FXML
+    private void filtrarStockCritico(){
+        listaArticulos.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            // Usar
+                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
+                // ResultSet = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(
+            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
+            "FROM producto NATURAL JOIN articulo WHERE art_cantidad_disponible <= 10"
+            );
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Articulo articulo = new Articulo(
+                    rs.getString("prod_id"),
+                    rs.getString("art_tipo"),
+                    rs.getString("art_marca"),
+                    rs.getString("art_modelo"),
+                    rs.getString("prod_precio"),
+                    rs.getString("art_cantidad_disponible")
+                );
+                listaArticulos.add(articulo);
+            }
+
+            tablaArticulos.setItems(listaArticulos);
+            txtBuscarArticuloTipo.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void filtrarSinStock(){
+        listaArticulos.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            // Usar
+                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
+                // ResultSet = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(
+            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
+            "FROM producto NATURAL JOIN articulo WHERE art_cantidad_disponible = 0"
+            );
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Articulo articulo = new Articulo(
+                    rs.getString("prod_id"),
+                    rs.getString("art_tipo"),
+                    rs.getString("art_marca"),
+                    rs.getString("art_modelo"),
+                    rs.getString("prod_precio"),
+                    rs.getString("art_cantidad_disponible")
+                );
+                listaArticulos.add(articulo);
+            }
+
+            tablaArticulos.setItems(listaArticulos);
+            txtBuscarArticuloTipo.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -8,32 +8,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasProductosController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="537.3999572753906" minWidth="10.0" prefWidth="312.33330688476565" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="969.0667068481447" minWidth="10.0" prefWidth="767.4666931152345" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="537.3999572753906" minWidth="10.0" prefWidth="279.2000244140625" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="969.0667068481447" minWidth="10.0" prefWidth="801.5999755859375" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="692.3333129882812" minHeight="10.0" prefHeight="437.8666564941406" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="382.4666564941407" minHeight="10.0" prefHeight="312.53334350585936" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <TableView fx:id="tablaArticulos" prefHeight="386.0" prefWidth="540.0">
+            <TableView fx:id="tablaArticulos" prefHeight="522.0">
               <columns>
-                <TableColumn fx:id="colArticuloId" prefWidth="54.93325650691986" text="ID" />
-                <TableColumn fx:id="colArticuloTipo" prefWidth="124.80005264282227" text="Tipo" />
-                  <TableColumn fx:id="colArticuloMarca" prefWidth="103.19990539550781" text="Marca" />
-                  <TableColumn fx:id="colArticuloModelo" prefWidth="104.80009460449219" text="Modelo" />
-                  <TableColumn fx:id="colArticuloPrecio" prefWidth="124.26666259765625" text="Precio" />
-                  <TableColumn fx:id="colArticuloStock" prefWidth="77.60003662109375" text="Stock" />
-                  <TableColumn prefWidth="144.7999267578125" text="Acción" />
+                <TableColumn fx:id="colArticuloId" prefWidth="35.99999922513962" text="ID" />
+                <TableColumn fx:id="colArticuloTipo" prefWidth="98.93326187133789" text="Tipo" />
+                  <TableColumn fx:id="colArticuloMarca" prefWidth="105.86660766601562" text="Marca" />
+                  <TableColumn fx:id="colArticuloModelo" prefWidth="161.5999755859375" text="Modelo" />
+                  <TableColumn fx:id="colArticuloPrecio" prefWidth="144.00003051757812" text="Precio" />
+                  <TableColumn fx:id="colArticuloStock" prefWidth="83.20001220703125" text="Stock" />
+                  <TableColumn prefWidth="140.0" text="Acción" />
               </columns>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </TableView>
          </children>
          <GridPane.margin>
@@ -42,17 +46,12 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label text="SERVICIOS DISPONIBLES">
-               <font>
-                  <Font name="System Bold Italic" size="16.0" />
-               </font>
-            </Label>
             <TableView fx:id="tablaServicios" prefHeight="386.0" prefWidth="540.0">
                <columns>
                   <TableColumn fx:id="colServicioId" prefWidth="118.13330382108688" text="ID" />
                   <TableColumn fx:id="colServicioNombre" prefWidth="132.53335571289062" text="Nombre" />
                   <TableColumn fx:id="colServicioPrecio" prefWidth="160.2666473388672" text="Precio" />
-                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="328.53350830078125" text="EmpleadoAsociado" />
+                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="328.53350830078125" text="Empleado Asociado" />
                </columns>
                <VBox.margin>
                   <Insets />
@@ -63,7 +62,7 @@
             <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
          </GridPane.margin>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="750.0" prefWidth="301.0">
+      <VBox alignment="CENTER" prefHeight="458.0" prefWidth="282.0">
          <children>
             <Label text="Búsqueda de artículos" textAlignment="CENTER">
                <font>
@@ -72,20 +71,70 @@
             </Label>
             <VBox>
                <children>
-                  <Label text="Nombre" />
-                  <TextField fx:id="txtBuscarArticulo" promptText="Ej 1122923772" />
+                  <Label text="Por tipo" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="282.0">
+                     <children>
+                        <TextField fx:id="txtBuscarArticuloTipo" prefHeight="26.0" prefWidth="180.0" promptText="Ej Llanta" />
+                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buscarArticuloTipo" text="Buscar">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label text="Por marca" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="282.0">
+                     <children>
+                        <TextField fx:id="txtBuscarArticuloMarca" prefHeight="26.0" prefWidth="180.0" promptText="Ej. Michelin" />
+                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buscarArticuloMarca" text="Buscar">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label text="Por modelo" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="282.0">
+                     <children>
+                        <TextField fx:id="txtBuscarArticuloModelo" prefHeight="26.0" prefWidth="180.0" promptText="Ej 4 pulgadas" />
+                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buscarArticuloModelo" text="Buscar">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="10.0" />
                </VBox.margin>
             </VBox>
             <VBox />
-            <Button mnemonicParsing="false" onAction="#buscarArticulo" text="Buscar" />
             <Label fx:id="messageLabel" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
+            <Label text="Filtro de artículos" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#filtrarVerTodos" prefWidth="100.0" text="Ver todos">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#filtrarStockCritico" prefWidth="100.0" text="Stock crítico">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#filtrarSinStock" prefWidth="100.0" text="Sin stock">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
          <GridPane.margin>
             <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />

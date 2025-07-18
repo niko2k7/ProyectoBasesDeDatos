@@ -154,6 +154,14 @@ public class VentasClientesController {
         stmt.executeUpdate(); // Mejor que .execute() para INSERT
 
         cargarDatosDesdeBD(); // Para actualizar la tabla
+
+        crearClienteDocumento.clear();
+        crearClienteNombre.clear();
+        crearClienteDireccion.clear();
+        crearClienteTelefono.clear();
+        crearClienteCorreo.clear();
+        crearClienteEstadoJuridico.clear();
+
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -187,6 +195,14 @@ public class VentasClientesController {
             stmt.executeUpdate(); // Mejor que .execute() para UPDATE
 
             cargarDatosDesdeBD();
+
+            actualizarClienteDocumento.clear();
+            actualizarClienteNombre.clear();
+            actualizarClienteDireccion.clear();
+            actualizarClienteTelefono.clear();
+            actualizarClienteCorreo.clear();
+            actualizarClienteEstadoJuridico.clear();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

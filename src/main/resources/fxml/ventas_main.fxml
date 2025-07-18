@@ -2,7 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,20 +14,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
-xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasMainController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasMainController">
    <top>
       <GridPane prefHeight="50.0" style="-fx-background-color: #E5E4E2;" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="795.0" minWidth="10.0" prefWidth="204.6666717529297" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="0.0" prefWidth="485.3333282470703" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="10.0" prefWidth="608.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="0.0" prefWidth="666.7999511718751" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="10.0" prefWidth="414.800048828125" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="244.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="560.0" GridPane.columnIndex="1">
                <children>
                   <Label text="Base de datos">
                      <font>
@@ -48,6 +59,15 @@ xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:c
          <children>
             <VBox prefHeight="667.0" prefWidth="150.0">
                <children>
+                  <HBox alignment="CENTER" prefWidth="200.0">
+                     <children>
+                        <Label text="MENÚ LATERAL">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#cargarVistaClientes" prefWidth="200.0" selected="true" style="-fx-background-color: transparent;" text="Clientes">
                      <font>
                         <Font size="20.0" />
@@ -67,10 +87,18 @@ xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:c
             </VBox>
             <VBox alignment="CENTER" prefHeight="74.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#cargarLogin" prefWidth="200.0" style="-fx-background-color: transparent;" text="Log Out" textAlignment="CENTER">
+                  <Separator prefWidth="200.0" />
+                  <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#cargarLogin" style="-fx-background-color: transparent;" text="Log Out" textAlignment="CENTER">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/iconoSalida.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </VBox>

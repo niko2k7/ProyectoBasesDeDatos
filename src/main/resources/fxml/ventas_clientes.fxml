@@ -36,8 +36,8 @@
                   <TableColumn fx:id="colDireccion" prefWidth="111.0" text="Dirección" />
                   <TableColumn fx:id="colTelefono" prefWidth="93.0" text="Teléfono" />
                   <TableColumn fx:id="colCorreo" prefWidth="156.0" text="Correo" />
-                  <TableColumn fx:id="colEstadoJuridico" minWidth="0.0" prefWidth="88.0" text="Estado jurídico" />
-                  <TableColumn fx:id="colAccion" prefWidth="159.0" text="Acción" />
+                  <TableColumn fx:id="colEstadoJuridico" minWidth="0.0" prefWidth="108.26678466796875" text="Estado jurídico" />
+                  <TableColumn fx:id="colAccion" prefWidth="138.9332275390625" text="Acción" />
               </columns>
                <GridPane.margin>
                   <Insets />
@@ -67,7 +67,7 @@
                   <VBox>
                      <children>
                         <Label text="Documento" />
-                        <TextField fx:id="actualizarClienteDocumento" promptText="Ej 1122923772" editable="false"/>
+                        <TextField fx:id="actualizarClienteDocumento" editable="false" promptText="Ej 1122923772" />
                         <Label text="Nombre" />
                         <TextField fx:id="actualizarClienteNombre" promptText="Ej 1122923772" />
                         <Label text="Direccion" />
