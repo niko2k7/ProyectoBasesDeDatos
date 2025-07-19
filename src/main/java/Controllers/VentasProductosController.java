@@ -68,7 +68,7 @@ public class VentasProductosController {
                 // ResultSet = stmt.executeQuery();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(
-                "select prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible from producto natural join articulo");
+                "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible FROM producto NATURAL JOIN articulo");
 
             while (rs.next()) {
                 Articulo articulo = new Articulo(

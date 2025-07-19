@@ -30,8 +30,8 @@ public class VentasClientesController {
     @FXML private TableColumn<Cliente, String> colCorreo;
     @FXML private TableColumn<Cliente, String> colEstadoJuridico;
     @FXML private TableColumn<Cliente, Void> colAccion;
+    
     // Para crear
-    // Para actualizar
     @FXML private TextField crearClienteDocumento;
     @FXML private TextField crearClienteNombre;
     @FXML private TextField crearClienteDireccion;

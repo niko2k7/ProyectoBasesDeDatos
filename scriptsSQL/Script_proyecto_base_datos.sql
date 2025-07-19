@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS DETALLE_FACTURA_VENTA;
 CREATE TABLE IF NOT EXISTS DETALLE_FACTURA_VENTA (
 	fven_codigo 			INT NOT NULL,
 	prod_id				INT NOT NULL,
-	dfv_cantidad 			INT NOT NULL COMMENT 'Cantidad comprada de un producto por un cliente',
+	dfv_cantidad 			INT NULL COMMENT 'Cantidad comprada de un producto por un cliente',
 	dfv_precio_unitario 	DECIMAL(10,2) NOT NULL COMMENT 'Precio unitario del producto',
 	dfv_subtotal 			DECIMAL(10,2) NOT NULL COMMENT 'Subtotal que sale de cantidad*precio_unitario',
   

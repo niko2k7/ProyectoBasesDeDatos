@@ -17,7 +17,7 @@ public class Cliente {
         this.estadoJuridico = estadoJuridico;
     }
 
-    // Getters y setters
+    // Getters
     public String getDocumento() { return documento; }
     public String getNombre() { return nombre; }
     public String getDireccion() { return direccion; }
