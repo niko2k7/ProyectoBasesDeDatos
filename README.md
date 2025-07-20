@@ -28,9 +28,13 @@ Docente: Elizabeth León Guzmán
 
 ## REQUISITOS:
 
+  MYSQL:
+  1. Tener instalado MYSQL... etc...
+  2. Haber corrido todos los scripts necesarios.
+  
   JDK 24.0.1:
   https://www.oracle.com/co/java/technologies/downloads/#jdk24-windows
-  Abrir cmd y poner java --version y javac --version, debe decir la versión correcta para ambos casos.
+  1. Abrir cmd y poner java --version y javac --version, debe decir la versión correcta para ambos casos.
   
   MAVEN 3.9.10:
   https://maven.apache.org/download.cgi
