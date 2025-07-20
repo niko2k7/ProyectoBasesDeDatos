@@ -3,6 +3,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import DataBase.DataBaseConnection;
@@ -85,7 +86,7 @@ public class VentasClientesController {
 
                         btnEliminar.setOnAction(event -> {
                             Cliente cliente = getTableView().getItems().get(getIndex());
-                            //eliminarCliente(cliente); // Método que debes implementar
+                            eliminarCliente(cliente); // Método que debes implementar
                         });
                     }
 
@@ -211,6 +212,23 @@ public class VentasClientesController {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void eliminarCliente(Cliente cliente){
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            PreparedStatement stmt = conn.prepareStatement(
+            "DELETE FROM servicio WHERE prod_id= ?"
+            );
+            stmt.setInt(1, Integer.parseInt(cliente.getDocumento()));
+            stmt.executeUpdate();
+            // llamar trigger que borre lo relacionado al servicio, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
+            System.out.println("Cliente eliminado correctamente");
+
+        } catch (NumberFormatException | SQLException e) {
+            e.printStackTrace();
+            System.out.println("Intento de borrado un cliente sin los permisos necesarios.");
         }
     }
 }

@@ -211,11 +211,13 @@ public class VentasCrearFacturasController {
 
             // 1. Crear factura
             CallableStatement stmtFactura = conn.prepareCall("{call crear_factura_venta(?, ?, ?, ?, ?)}");
+            
             stmtFactura.setDate(1, new java.sql.Date(System.currentTimeMillis()));
             stmtFactura.setBigDecimal(2, totalFactura);
             stmtFactura.setString(3, txtMetodoPago.getText());
             stmtFactura.setInt(4, documentoCliente);
             stmtFactura.registerOutParameter(5, Types.INTEGER);
+            
             stmtFactura.execute();
 
             int idFactura = stmtFactura.getInt(5);

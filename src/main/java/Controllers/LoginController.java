@@ -35,7 +35,15 @@ public class LoginController {
         System.out.println("Conectado a la base de datos");
 
         try {
-        String rol = obtenerRolActual();
+        String rol;
+
+        // Si es root, asignamos manualmente el rol
+        if (usuario.equalsIgnoreCase("root")) {
+            rol = "rol_ventas"; // <- Puedes cambiarlo por el rol que prefieras
+        } else {
+            rol = obtenerRolActual();
+        }
+
         if (rol == null) {
             messageLabel.setVisible(true);
             messageLabel.setText("No se pudo determinar el rol del usuario.");

@@ -99,7 +99,7 @@ public class VentasProductosController {
 
                         btnEliminar.setOnAction(event -> {
                             Articulo articulo = getTableView().getItems().get(getIndex());
-                            //eliminarCliente(cliente); // Método que debes implementar
+                            eliminarArticulo(articulo); // Método que debes implementar
                         });
                     }
 
@@ -175,7 +175,7 @@ public class VentasProductosController {
 
                         btnEliminar.setOnAction(event -> {
                             Servicio servicio = getTableView().getItems().get(getIndex());
-                            //eliminarCliente(cliente); // Método que debes implementar
+                            eliminarServicio(servicio);
                         });
 
                         
@@ -223,6 +223,38 @@ public class VentasProductosController {
             tablaServicios.setItems(listaServicios);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    // Eliminación
+    private void eliminarArticulo(Articulo articulo){
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            PreparedStatement stmt = conn.prepareStatement(
+            "DELETE FROM articulo WHERE prod_id=  ?"
+            );
+            stmt.setInt(1, Integer.parseInt(articulo.getId()));
+            stmt.executeUpdate();
+            // llamar trigger que borre lo relacionado al articulo, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Intento de borrado un articulo sin los permisos necesarios.");
+        }
+    }
+
+    private void eliminarServicio(Servicio servicio){
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            PreparedStatement stmt = conn.prepareStatement(
+            "DELETE FROM servicio WHERE prod_id= ?"
+            );
+            stmt.setInt(1, Integer.parseInt(servicio.getId()));
+            stmt.executeUpdate();
+            // llamar trigger que borre lo relacionado al servicio, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Intento de borrado un servicio sin los permisos necesarios.");
         }
     }
 

@@ -41,13 +41,20 @@ GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.CLIENTE TO 'rol_ventas'@'loc
 GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.FACTURA_VENTA TO 'rol_ventas'@'localhost';
 GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.DETALLE_FACTURA_VENTA TO 'rol_ventas'@'localhost';
 GRANT SELECT ON proyecto_base_datos.PRODUCTO TO 'rol_ventas'@'localhost'; -- Solo consulta de productos (incluye precios de venta)
-GRANT SELECT ON proyecto_base_datos.ARTICULO TO 'rol_ventas'@'localhost';   -- Para consultar stock
+GRANT SELECT ON proyecto_base_datos.SERVICIO TO 'rol_ventas'@'localhost';   -- Para consultar stock
+GRANT SELECT, UPDATE ON proyecto_base_datos.ARTICULO TO 'rol_ventas'@'localhost';   -- Para consultar stock
 GRANT SELECT, INSERT ON proyecto_base_datos.CUENTA_POR_COBRAR TO 'rol_ventas'@'localhost'; -- Creación de cuentas por cobrar al vender a crédito
 GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.PLAZO_COBRO TO 'rol_ventas'@'localhost'; -- Registrar plazos y actualizar estados de cuotas
 
 -- Permisos de VISTAS específicos para 'rol_ventas'
 GRANT SELECT ON proyecto_base_datos.Vista_Inventario_Consulta TO 'rol_ventas'@'localhost';
 GRANT SELECT ON proyecto_base_datos.Vista_Cuentas_Cobrar_Resumen TO 'rol_ventas'@'localhost';
+
+-- Permisos de PA
+GRANT EXECUTE ON PROCEDURE crear_factura_venta TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE agregar_detalle_factura TO 'rol_ventas'@'localhost';
+
+
 
 
 -- 3.4. Permisos para 'rol_contabilidad'
@@ -116,3 +123,4 @@ SET DEFAULT ROLE ALL TO
 
 -- 7. Refrescar los privilegios para que los cambios surtan efecto
 FLUSH PRIVILEGES;
+
