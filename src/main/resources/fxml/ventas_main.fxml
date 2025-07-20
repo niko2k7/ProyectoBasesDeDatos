@@ -19,8 +19,8 @@
       <GridPane prefHeight="50.0" style="-fx-background-color: #E5E4E2;" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="795.0" minWidth="10.0" prefWidth="204.6666717529297" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="0.0" prefWidth="666.7999511718751" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="10.0" prefWidth="414.800048828125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="0.0" prefWidth="459.33330078125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1080.3333129882812" minWidth="10.0" prefWidth="619.06669921875" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,7 +35,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="560.0" GridPane.columnIndex="1">
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="565.0" GridPane.columnIndex="1">
                <children>
                   <Label text="Base de datos">
                      <font>
@@ -78,7 +78,17 @@
                         <Font size="20.0" />
                      </font>
                   </ToggleButton>
-                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="142.0" mnemonicParsing="false" onAction="#cargarVistaFacturas" prefWidth="200.0" style="-fx-background-color: transparent;" text="Facturas">
+                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="142.0" mnemonicParsing="false" onAction="#cargarVistaVerFacturas" prefWidth="200.0" style="-fx-background-color: transparent;" text="Ver facturas">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="127.0" mnemonicParsing="false" onAction="#cargarVistaCrearFacturas" prefWidth="200.0" style="-fx-background-color: transparent;" text="Crear facturas">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton alignment="TOP_LEFT" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onAction="#cargarVistaCuentasPorCobrar" prefWidth="200.0" style="-fx-background-color: transparent;" text="Cuentas Por Cobrar">
                      <font>
                         <Font size="20.0" />
                      </font>

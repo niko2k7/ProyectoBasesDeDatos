@@ -9,15 +9,11 @@ import Models.Factura;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
-public class VentasFacturasController {
+public class VentasVerFacturasController {
     @FXML private TableView<Factura> tablaFacturas;
     @FXML private TableColumn<Factura, String> colCodigo;
     @FXML private TableColumn<Factura, String> colFecha;
@@ -70,25 +66,6 @@ public class VentasFacturasController {
             }
 
             tablaFacturas.setItems(listaFacturas);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void cargarVentanaCrearFactura() {
-        try {
-            // Cargar el archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventas_crear_factura.fxml"));
-            Parent root = loader.load(); // Esto carga el FXML y el controlador automáticamente
-
-            // Crear nueva ventana (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Crear Factura");
-            stage.setScene(new Scene(root));
-            //stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal si quieres
-            stage.show();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

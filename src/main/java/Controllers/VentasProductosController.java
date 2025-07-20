@@ -11,10 +11,14 @@ import Models.Servicio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 public class VentasProductosController {
     @FXML private TableView<Articulo> tablaArticulos;
@@ -31,7 +35,7 @@ public class VentasProductosController {
     @FXML private TableColumn<Servicio, String> colServicioNombre;
     @FXML private TableColumn<Servicio, String> colServicioPrecio;
     @FXML private TableColumn<Servicio, String> colServicioEmpleadoAsociado;
-    @FXML private TableColumn<Servicio, Void> colAccionServProducto;
+    @FXML private TableColumn<Servicio, Void> colAccionServicios;
 
     @FXML private TextField txtBuscarArticuloTipo;
     @FXML private TextField txtBuscarArticuloMarca;
@@ -46,7 +50,8 @@ public class VentasProductosController {
         cargarDatosArticuloDesdeBD(); 
         configurarColumnasTablaServicios();
         cargarDatosServicioDesdeBD(); 
-        // configurarColumnaAccion();
+        configurarColumnaAccionArticulos();
+        configurarColumnaAccionServicios();
     }
 
     private void configurarColumnasTablaArticulos() {
@@ -56,6 +61,62 @@ public class VentasProductosController {
         colArticuloModelo.setCellValueFactory(new PropertyValueFactory<>("Modelo"));
         colArticuloPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
         colArticuloStock.setCellValueFactory(new PropertyValueFactory<>("Stock"));
+    }
+
+    private void configurarColumnaAccionArticulos() {
+        Callback<TableColumn<Articulo, Void>, TableCell<Articulo, Void>> cellFactory = new Callback<>() {
+            @Override
+            public TableCell<Articulo, Void> call(final TableColumn<Articulo, Void> param) {
+                return new TableCell<>() {
+                    private final TextField txtCantidad = new TextField();
+                    private final Button btnVender= new Button("Vender");
+                    private final Button btnEliminar = new Button("Eliminar");
+
+                    {
+                        txtCantidad.setPromptText("Cant.");
+                        txtCantidad.setPrefWidth(40);
+
+                        btnVender.setOnAction(event -> {
+                            Articulo articulo = getTableView().getItems().get(getIndex());
+                            
+                            try{
+                                int cantidadCompra = Integer.parseInt(txtCantidad.getText());
+                                int cantidadDisponible = Integer.parseInt(articulo.getStock());
+                                if(cantidadCompra>0 && cantidadDisponible>=(cantidadCompra)){
+                                    txtCantidad.setStyle("-fx-border-color: green;");
+                                    VentasContexto.getInstancia().agregarArticuloAFactura(articulo, cantidadCompra);
+                                    txtCantidad.clear();
+                                }else{
+                                    txtCantidad.setStyle("-fx-border-color: red;");
+                                    System.out.println("no hay stock suficiente");
+                                }
+                            }catch(NumberFormatException e){
+                                txtCantidad.setStyle("-fx-border-color: red;");
+                                System.out.println("Ingrese un numero valido");
+                            }
+                        });
+
+                        btnEliminar.setOnAction(event -> {
+                            Articulo articulo = getTableView().getItems().get(getIndex());
+                            //eliminarCliente(cliente); // Método que debes implementar
+                        });
+                    }
+
+                    private final HBox hbox = new HBox(5, txtCantidad, btnVender, btnEliminar); // Espaciado entre botones
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(hbox);
+                        }
+                    }
+                };
+            }
+        };
+        colAccionArticulos.setCellFactory(cellFactory);
     }
 
     private void cargarDatosArticuloDesdeBD() {
@@ -93,6 +154,46 @@ public class VentasProductosController {
         colServicioNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         colServicioPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
         colServicioEmpleadoAsociado.setCellValueFactory(new PropertyValueFactory<>("empleadoAsociado"));
+    }
+
+    private void configurarColumnaAccionServicios() {
+        Callback<TableColumn<Servicio, Void>, TableCell<Servicio, Void>> cellFactory = new Callback<>() {
+            @Override
+            public TableCell<Servicio, Void> call(final TableColumn<Servicio, Void> param) {
+                return new TableCell<>() {
+                    
+                    private final Button btnVender= new Button("Añadir");
+                    private final Button btnEliminar = new Button("Eliminar");
+
+                    {
+                        btnVender.setOnAction(event -> {
+                            Servicio servicio = getTableView().getItems().get(getIndex());
+                            VentasContexto.getInstancia().agregarServicioAFactura(servicio);
+                        });
+
+                        btnEliminar.setOnAction(event -> {
+                            Servicio servicio = getTableView().getItems().get(getIndex());
+                            //eliminarCliente(cliente); // Método que debes implementar
+                        });
+
+                        
+                    }
+
+                    private final HBox hbox = new HBox(5, btnVender, btnEliminar); // Espaciado entre botones
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(hbox);
+                        }
+                    }
+                };
+            }
+        };
+        colAccionServicios.setCellFactory(cellFactory);
     }
 
     private void cargarDatosServicioDesdeBD() {

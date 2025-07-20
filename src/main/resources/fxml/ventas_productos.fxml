@@ -28,12 +28,12 @@
             <TableView fx:id="tablaArticulos" prefHeight="522.0">
               <columns>
                 <TableColumn fx:id="colArticuloId" prefWidth="35.99999922513962" text="ID" />
-                <TableColumn fx:id="colArticuloTipo" prefWidth="98.93326187133789" text="Tipo" />
-                  <TableColumn fx:id="colArticuloMarca" prefWidth="105.86660766601562" text="Marca" />
-                  <TableColumn fx:id="colArticuloModelo" prefWidth="161.5999755859375" text="Modelo" />
-                  <TableColumn fx:id="colArticuloPrecio" prefWidth="144.00003051757812" text="Precio" />
-                  <TableColumn fx:id="colArticuloStock" prefWidth="83.20001220703125" text="Stock" />
-                  <TableColumn prefWidth="140.0" text="Acción" />
+                <TableColumn fx:id="colArticuloTipo" prefWidth="76.79995727539062" text="Tipo" />
+                  <TableColumn fx:id="colArticuloMarca" prefWidth="108.26656341552734" text="Marca" />
+                  <TableColumn fx:id="colArticuloModelo" prefWidth="162.93328857421875" text="Modelo" />
+                  <TableColumn fx:id="colArticuloPrecio" prefWidth="137.86666870117188" text="Precio" />
+                  <TableColumn fx:id="colArticuloStock" prefWidth="60.5333251953125" text="Stock" />
+                  <TableColumn fx:id="colAccionArticulos" prefWidth="193.06671142578125" text="Acción" />
               </columns>
                <VBox.margin>
                   <Insets />
@@ -48,10 +48,11 @@
          <children>
             <TableView fx:id="tablaServicios" prefHeight="386.0" prefWidth="540.0">
                <columns>
-                  <TableColumn fx:id="colServicioId" prefWidth="118.13330382108688" text="ID" />
-                  <TableColumn fx:id="colServicioNombre" prefWidth="132.53335571289062" text="Nombre" />
-                  <TableColumn fx:id="colServicioPrecio" prefWidth="160.2666473388672" text="Precio" />
-                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="328.53350830078125" text="Empleado Asociado" />
+                  <TableColumn fx:id="colServicioId" prefWidth="66.13336336612701" text="ID" />
+                  <TableColumn fx:id="colServicioNombre" prefWidth="200.53328704833984" text="Nombre" />
+                  <TableColumn fx:id="colServicioPrecio" prefWidth="117.06671142578125" text="Precio" />
+                  <TableColumn fx:id="colServicioEmpleadoAsociado" minWidth="0.0" prefWidth="195.20010375976562" text="Empleado Asociado" />
+                  <TableColumn fx:id="colAccionServicios" prefWidth="192.79986572265625" text="Acción" />
                </columns>
                <VBox.margin>
                   <Insets />

@@ -38,8 +38,48 @@ public class VentasMainController {
     }
 
     @FXML
-    private void cargarVistaFacturas() {
-        cargarVista("ventas_facturas.fxml");
+    private void cargarVistaVerFacturas() {
+        cargarVista("ventas_ver_facturas.fxml");
+    }
+
+    private Stage facturaStage;
+   @FXML
+    private void cargarVistaCrearFacturas() {
+    
+        if (facturaStage != null && facturaStage.isShowing()) {
+        facturaStage.toFront();
+        return;
+    }
+        try {
+            // Cargar el archivo FXML y obtener el controlador
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventas_crear_facturas.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            // Obtener el controller y setearlo en el contexto
+            VentasCrearFacturasController controller = loader.getController();
+            VentasContexto.getInstancia().setCrearFacturaController(controller);
+
+            // Crear una nueva ventana (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Crear Factura");
+            stage.setScene(scene);
+            stage.show();
+
+            // Opcional: manejar el cierre para limpiar el contexto
+            stage.setOnCloseRequest(event -> {
+                VentasContexto.getInstancia().setCrearFacturaController(null);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("❌ No se pudo abrir la ventana de Crear Factura");
+        }
+    }
+
+
+    @FXML
+    private void cargarVistaCuentasPorCobrar() {
+        //cargarVista("ventas_crar_facturas.fxml");
     }
 
     @FXML
