@@ -30,6 +30,7 @@ public class VentasVerFacturasController {
         configurarColumnas();
         cargarDatosDesdeBD(); 
         // configurarColumnaAccion();
+        VentasContexto.getInstancia().setVerFacturaController(this);
     }
 
     private void configurarColumnas() {
@@ -41,7 +42,7 @@ public class VentasVerFacturasController {
         colNombreCliente.setCellValueFactory(new PropertyValueFactory<>("NombreCliente"));
     }
 
-    private void cargarDatosDesdeBD() {
+    public void cargarDatosDesdeBD() {
         listaFacturas.clear();
 
         try {

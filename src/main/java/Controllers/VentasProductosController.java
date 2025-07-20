@@ -52,6 +52,7 @@ public class VentasProductosController {
         cargarDatosServicioDesdeBD(); 
         configurarColumnaAccionArticulos();
         configurarColumnaAccionServicios();
+        VentasContexto.getInstancia().setProductosController(this);
     }
 
     private void configurarColumnasTablaArticulos() {
@@ -119,7 +120,7 @@ public class VentasProductosController {
         colAccionArticulos.setCellFactory(cellFactory);
     }
 
-    private void cargarDatosArticuloDesdeBD() {
+    public void cargarDatosArticuloDesdeBD() {
         listaArticulos.clear();
 
         try {
@@ -196,7 +197,7 @@ public class VentasProductosController {
         colAccionServicios.setCellFactory(cellFactory);
     }
 
-    private void cargarDatosServicioDesdeBD() {
+    public void cargarDatosServicioDesdeBD() {
         listaServicios.clear();
 
         try {

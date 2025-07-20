@@ -118,5 +118,50 @@ END //
 
 DELIMITER ;
 
+select * from factura_venta;
+
+
+
+##### Para agregar una factura junto con sus detalles de venta
+DROP PROCEDURE IF EXISTS crear_factura_venta;
+DELIMITER //
+CREATE PROCEDURE crear_factura_venta(
+    IN p_fecha DATE,
+    IN p_total DECIMAL(10,2),
+    IN p_metodo_pago VARCHAR(45),
+    IN p_act_documento INT,
+    OUT p_fven_codigo INT
+)
+BEGIN
+    INSERT INTO FACTURA_VENTA (fven_fecha, fven_total, fven_metodo_pago, act_documento)
+    VALUES (p_fecha, p_total, p_metodo_pago, p_act_documento);
+
+    SET p_fven_codigo = LAST_INSERT_ID();
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS agregar_detalle_factura;
+DELIMITER //
+CREATE PROCEDURE agregar_detalle_factura(
+    IN p_fven_codigo INT,
+    IN p_prod_id INT,
+    IN p_cantidad INT,
+    IN p_precio_unitario DECIMAL(10,2),
+    IN p_subtotal DECIMAL(10,2)
+)
+BEGIN
+    INSERT INTO DETALLE_FACTURA_VENTA (
+        fven_codigo, prod_id, dfv_cantidad, dfv_precio_unitario, dfv_subtotal
+    ) VALUES (
+        p_fven_codigo, p_prod_id, p_cantidad, p_precio_unitario, p_subtotal
+    );
+
+    UPDATE articulo
+    SET art_cantidad_disponible = art_cantidad_disponible - p_cantidad
+    WHERE prod_id = p_prod_id;
+END //
+DELIMITER ;
+
+
 
 

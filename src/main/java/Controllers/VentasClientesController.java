@@ -150,9 +150,15 @@ public class VentasClientesController {
         stmt.setString(4, crearClienteTelefono.getText());                // act_telefono
         stmt.setString(5, crearClienteCorreo.getText());                  // act_correo
         stmt.setString(6, crearClienteEstadoJuridico.getText());          // act_estado_juridico
-
         stmt.executeUpdate(); // Mejor que .execute() para INSERT
-
+        
+         // 2. Insertar en CLIENTE
+        PreparedStatement stmtCliente = conn.prepareStatement(
+            "INSERT INTO cliente (act_documento) VALUES (?)"
+        );
+        stmtCliente.setInt(1, Integer.parseInt(crearClienteDocumento.getText()));
+        stmtCliente.executeUpdate();
+        
         cargarDatosDesdeBD(); // Para actualizar la tabla
 
         crearClienteDocumento.clear();
