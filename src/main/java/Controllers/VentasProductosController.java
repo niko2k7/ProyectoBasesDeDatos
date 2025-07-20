@@ -120,6 +120,7 @@ public class VentasProductosController {
         colAccionArticulos.setCellFactory(cellFactory);
     }
 
+    
     public void cargarDatosArticuloDesdeBD() {
         listaArticulos.clear();
 

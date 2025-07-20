@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasCrearFacturasController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentasCrearFacturasController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -25,17 +25,20 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
          <children>
-            <Label text="Detalle Factura Articulos" />
+            <Label text="Detalle Factura Articulos">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font></Label>
             <TableView fx:id="tablaDetalleFacturaArticulos" prefHeight="406.0" prefWidth="1040.0">
               <columns>
-                <TableColumn fx:id="colArticuloId" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="colArticuloTipo" prefWidth="75.0" text="Tipo" />
+                <TableColumn fx:id="colArticuloId" prefWidth="57.60000991821289" text="ID" />
+                <TableColumn fx:id="colArticuloTipo" prefWidth="92.80001831054688" text="Tipo" />
                   <TableColumn fx:id="colArticuloMarca" prefWidth="75.0" text="Marca" />
                   <TableColumn fx:id="colArticuloModelo" prefWidth="75.0" text="Modelo" />
                   <TableColumn fx:id="colArticuloPrecioUnitario" prefWidth="98.66656494140625" text="Precio Unitario" />
                   <TableColumn fx:id="colArticuloCantidad" prefWidth="98.66656494140625" text="Cantidad" />
-                  <TableColumn fx:id="colArticuloSubtotal" prefWidth="98.66656494140625" text="Subtotal" />
-                  <TableColumn fx:id="colArticuloAccion" prefWidth="98.66656494140625" text="Acción" />
+                  <TableColumn fx:id="colArticuloSubtotal" prefWidth="99.99993896484375" text="Subtotal" />
+                  <TableColumn fx:id="colArticuloAccion" prefWidth="108.80002441406248" text="Acción" />
               </columns>
             </TableView>
          </children>
@@ -45,14 +48,17 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
          <children>
-            <Label text="Detalle Factura Servicios" />
+            <Label text="Detalle Factura Servicios">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font></Label>
             <TableView fx:id="tablaDetalleFacturaServicios" prefHeight="258.0" prefWidth="1040.0">
               <columns>
-                <TableColumn fx:id="colServicioId" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="colServicioNombre" prefWidth="75.0" text="Nombre" />
-                  <TableColumn fx:id="colServicioPrecio" prefWidth="75.0" text="Precio" />
-                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="147.73329162597656" text="Empleado asociado" />
-                  <TableColumn fx:id="colServicioAccion" minWidth="0.0" prefWidth="138.66665649414062" text="Acción" />
+                <TableColumn fx:id="colServicioId" prefWidth="50.400028228759766" text="ID" />
+                <TableColumn fx:id="colServicioNombre" prefWidth="184.0" text="Nombre" />
+                  <TableColumn fx:id="colServicioPrecio" prefWidth="132.7999725341797" text="Precio" />
+                  <TableColumn fx:id="colServicioEmpleadoAsociado" prefWidth="167.20001220703125" text="Empleado asociado" />
+                  <TableColumn fx:id="colServicioAccion" minWidth="0.0" prefWidth="176.79998779296875" text="Acción" />
               </columns>
             </TableView>
          </children>
@@ -62,8 +68,8 @@
       </VBox>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.8666076660156" minWidth="10.0" prefWidth="436.8666076660156" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.6000061035156" minWidth="10.0" prefWidth="313.1333923339844" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -83,7 +89,7 @@
                               <Label text="Documento" />
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="txtDocumento" prefHeight="26.0" prefWidth="185.0" promptText="Ej 1122923772" />
+                                    <TextField fx:id="txtDocumento" prefHeight="26.0" prefWidth="135.0" promptText="Ej 1122923772" />
                                     <Button mnemonicParsing="false" onAction="#cargarCliente" text="Cargar">
                                        <HBox.margin>
                                           <Insets left="3.0" />
@@ -142,6 +148,9 @@
                      </children>
                   </HBox>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </GridPane.margin>
             </VBox>
             <VBox alignment="CENTER" prefHeight="195.0" prefWidth="540.0" GridPane.columnIndex="1">
                <children>
@@ -153,9 +162,9 @@
                   <VBox prefHeight="131.0" prefWidth="540.0">
                      <children>
                         <Label text="Método de pago" />
-                        <TextField fx:id="txtMetodoPago" prefHeight="26.0" prefWidth="135.0" promptText="Ej 1122923772" />
+                        <TextField fx:id="txtMetodoPago" prefHeight="26.0" prefWidth="135.0" promptText="Ej Efectivo, Tarjeta, Transferencia" />
                         <Label text="Total" />
-                        <TextField fx:id="txtTotal" editable="false" promptText="Ej Nicolás Aguirre Velásquez" />
+                        <TextField fx:id="txtTotal" editable="false" promptText="0" text="0" />
                         <VBox alignment="CENTER" prefHeight="51.0" prefWidth="540.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#crearFactura" text="Crear Factura">
