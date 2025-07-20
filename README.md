@@ -1,4 +1,32 @@
-REQUISITOS:
+# Proyecto de Bases de Datos
+<br>
+<img src="https://www.pngkey.com/png/detail/268-2688228_universidad-nacional-colombia-logo.png" width="230" alt="Logo Universidad Nacional de Colombia">
+<br>
+UNIVERSIDAD NACIONAL DE COLOMBIA 
+<br>
+Bases de Datos
+<br>
+2016353
+<br>
+Grupo 1
+<br><br>
+Autores: 
+
+- Nicolás Aguirre Velásquez (niaguirrev@unal.edu.co) 
+- Ever Nicolás Muñoz Cortés (evmunoz@unal.edu.co)
+- Omar Alejandro Blanco Pineda (oblancop@unal.edu.co) 
+
+Docente: Elizabeth León Guzmán 
+<br><br>
+
+---
+
+## Contenido
+<br><br>
+
+---
+
+## REQUISITOS:
 
   JDK 24.0.1:
   https://www.oracle.com/co/java/technologies/downloads/#jdk24-windows
@@ -20,10 +48,18 @@ REQUISITOS:
   - Extensión "JAVA"
   - Extensión "JavaFx Support"
   - Extensión "Extension Pack For Java"
+<br><br>
 
-CORRER Y COMPILAR EL PROYECTO EN VSCODE:
+---
+
+
+## CORRER Y COMPILAR EL PROYECTO EN VSCODE:
 1. Abrir el proyecto en vscode.
 2. Asegurarse de que está el archivo pom.xml
 3. Presionar Ctrl + Ñ
 4. Escribir "mvn clean compile"
 5. Escribir "mvn clean javafx:run"
+<br><br>
+
+---
+
