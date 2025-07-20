@@ -177,10 +177,7 @@ public class VentasProductosController {
                             Servicio servicio = getTableView().getItems().get(getIndex());
                             eliminarServicio(servicio);
                         });
-
-                        
                     }
-
                     private final HBox hbox = new HBox(5, btnVender, btnEliminar); // Espaciado entre botones
 
                     @Override
@@ -200,7 +197,6 @@ public class VentasProductosController {
 
     public void cargarDatosServicioDesdeBD() {
         listaServicios.clear();
-
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
             // Usar
@@ -262,7 +258,6 @@ public class VentasProductosController {
     @FXML
     private void buscarArticuloTipo(){
         listaArticulos.clear();
-
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
             // Usar

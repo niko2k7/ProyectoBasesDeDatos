@@ -10,6 +10,7 @@ public class VentasContexto {
     private VentasProductosController productoController;
     private VentasVerFacturasController verFacturaController;
     private VentasCrearFacturasController crearFacturaController;
+    private VentasVerDetalleFacturasController verDetalleFacturaController;
     
 
     private VentasContexto() {}
@@ -32,6 +33,10 @@ public class VentasContexto {
 
     public void setCrearFacturaController(VentasCrearFacturasController controller) {
         this.crearFacturaController = controller;
+    }
+
+    public void setVerDetalleFacturasController(VentasVerDetalleFacturasController controller) {
+        this.verDetalleFacturaController = controller;
     }
 
     public void recargarArticulos() {
@@ -62,4 +67,6 @@ public class VentasContexto {
     }
 }
 }
+
+
 

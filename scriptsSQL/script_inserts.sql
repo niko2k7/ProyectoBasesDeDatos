@@ -54,8 +54,8 @@ INSERT INTO HORARIO_EMPLEADO (hor_id, act_documento, hor_num_dias_laborales, hor
 
 -- Insertar en PRODUCTO
 INSERT INTO PRODUCTO (prod_tipo, prod_precio) VALUES
-('SERVICIO', 50000.00),
-('SERVICIO', 120000.00),
+('SERVICIO', 50000.00),	-- Instalación
+('SERVICIO', 120000.00), -- Mantenimiento
 ('ARTICULO', 320000.00), -- Llanta 175/70 R13
 ('ARTICULO', 450000.00), -- Llanta 195/60 R15
 ('ARTICULO', 580000.00), -- Llanta 225/50 R17
@@ -69,7 +69,28 @@ INSERT INTO PRODUCTO (prod_tipo, prod_precio) VALUES
 ('ARTICULO', 1600000.00), -- Rin 4x4 20 pulgadas
 ('ARTICULO', 2000000.00), -- Rin de lujo 22 pulgadas
 ('ARTICULO', 2800000.00), -- Rin deportivo 24 pulgadas
-('ARTICULO', 3500000.00); -- Rin SUV de lujo 26 pulgadas
+('ARTICULO', 3500000.00), -- Rin SUV de lujo 26 pulgadas
+('ARTICULO', 280000.00), -- ID 17
+('ARTICULO', 360000.00), -- 18
+('ARTICULO', 420000.00), -- 19
+('ARTICULO', 510000.00), -- 20
+('ARTICULO', 630000.00), -- 21
+('ARTICULO', 700000.00), -- 22
+('ARTICULO', 760000.00), -- 23
+('ARTICULO', 820000.00), -- 24
+('ARTICULO', 950000.00), -- 25
+('ARTICULO', 1100000.00), -- 26
+('ARTICULO', 250000.00), -- 27
+('ARTICULO', 300000.00), -- 28
+('ARTICULO', 550000.00), -- 29
+('ARTICULO', 600000.00), -- 30
+('ARTICULO', 750000.00), -- 31
+('SERVICIO', 65000.00),  -- ID 32
+('SERVICIO', 95000.00),  -- 33
+('SERVICIO', 150000.00), -- 34
+('SERVICIO', 200000.00), -- 35
+('SERVICIO', 175000.00); -- 36
+
 
 -- Insertar en ARTICULO
 INSERT INTO ARTICULO (prod_id, art_tipo, art_marca, art_modelo, art_cantidad_disponible) VALUES
@@ -86,18 +107,43 @@ INSERT INTO ARTICULO (prod_id, art_tipo, art_marca, art_modelo, art_cantidad_dis
 (13, 'Rin', 'American Racing', '4x4 20 Pulgadas', 8),
 (14, 'Rin', 'Fuel Off-Road', 'De lujo 22 Pulgadas', 5),
 (15, 'Rin', 'Vossen', 'Deportivo 24 Pulgadas', 3),
-(16, 'Rin', 'Lexani', 'SUV de lujo 26 Pulgadas', 2);
+(16, 'Rin', 'Lexani', 'SUV de lujo 26 Pulgadas', 2),
+(17, 'Llanta', 'Kumho', '175/65 R14', 35),
+(18, 'Llanta', 'Toyo', '185/70 R14', 25),
+(19, 'Llanta', 'Falken', '195/55 R16', 30),
+(20, 'Llanta', 'Maxxis', '205/60 R16', 20),
+(21, 'Rin', 'Speedline', '15 Pulgadas', 18),
+(22, 'Rin', 'OZ Racing', '18 Pulgadas', 10),
+(23, 'Rin', 'Borbet', '21 Pulgadas', 7),
+(24, 'Llanta', 'Nexen', '215/55 R17', 22),
+(25, 'Llanta', 'Bridgestone', '225/60 R17', 15),
+(26, 'Rin', 'MSW', '22 Pulgadas Negro Mate', 5),
+(27, 'Llanta', 'Hankook', '195/65 R15', 30),
+(28, 'Rin', 'Momo', '16 Pulgadas', 25),
+(29, 'Llanta', 'GT Radial', '205/55 R16', 20),
+(30, 'Rin', 'Rial', '17 Pulgadas Plata', 12),
+(31, 'Rin', 'Mak', '19 Pulgadas Grafito', 8);
 
 
 -- Insertar en SERVICIO
 INSERT INTO SERVICIO (prod_id, serv_nombre, serv_descripcion, act_documento) VALUES
 (1, 'Instalación', 'Servicio de instalación de productos', 1093229202),
-(2, 'Mantenimiento', 'Servicio de mantenimiento preventivo', 1093229202);
+(2, 'Mantenimiento', 'Servicio de mantenimiento preventivo', 1093229202),
+(32, 'Balanceo', 'Balanceo de ruedas para mayor estabilidad', 1091681318),
+(33, 'Alineación', 'Alineación de dirección y suspensión', 1124860764),
+(34, 'Cambio de válvulas', 'Reemplazo de válvulas defectuosas', 1093229202),
+(35, 'Inspección técnica', 'Revisión general del vehículo', 1115086181),
+(36, 'Revisión de frenos', 'Diagnóstico y ajuste del sistema de frenos', 1127772276);
 
 -- Insertar en SERVICIO_HAS_EMPLEADO
 INSERT INTO SERVICIO_HAS_EMPLEADO (prod_id, act_documento) VALUES
 (1, 1093229202),
-(2, 1093229202);
+(2, 1093229202),
+(32, 1091681318),
+(33, 1124860764),
+(34, 1093229202),
+(35, 1115086181),
+(36, 1127772276);
 
 -- Insertar en MATERIAL_HERRAMIENTA
 INSERT INTO MATERIAL_HERRAMIENTA (mat_nombre, mat_descripcion, mat_cantidad, mat_costo) VALUES
@@ -112,14 +158,38 @@ INSERT INTO SERVICIO_has_MATERIAL_HERRAMIENTA (prod_id, mat_id) VALUES
 -- Insertar en FACTURA_VENTA
 INSERT INTO FACTURA_VENTA (fven_fecha, fven_total, fven_metodo_pago, act_documento) VALUES
 ('2025-06-15', 200000.00, 'Efectivo', 1060654586),
-('2025-06-16', 350000.00, 'Tarjeta', 1070919081);
+('2025-06-16', 350000.00, 'Tarjeta', 1070919081),
+('2025-07-01', 680000.00, 'Efectivo', 1084037531),  -- Factura 3
+('2025-07-02', 950000.00, 'Tarjeta', 1088332181),   -- Factura 4
+('2025-07-03', 1300000.00, 'Transferencia', 1089720081); -- Factura 5
 
 -- Insertar en DETALLE_FACTURA_VENTA
 INSERT INTO DETALLE_FACTURA_VENTA (fven_codigo, prod_id, dfv_cantidad, dfv_precio_unitario, dfv_subtotal) VALUES
+-- Factura 1
 (1, 1, 1, 150000.00, 150000.00),
 (1, 4, 1, 50000.00, 50000.00),
+
+-- Factura 2
 (2, 2, 1, 250000.00, 250000.00),
-(2, 5, 1, 120000.00, 120000.00);
+(2, 5, 1, 120000.00, 120000.00),
+
+-- Factura 3
+(3, 17, 1, 280000.00, 280000.00),
+(3, 32, 1, 65000.00, 65000.00),
+(3, 33, 1, 95000.00, 95000.00),
+(3, 27, 1, 250000.00, 250000.00),
+
+-- Factura 4
+(4, 18, 1, 360000.00, 360000.00),
+(4, 34, 1, 150000.00, 150000.00),
+(4, 28, 1, 300000.00, 300000.00),
+(4, 36, 1, 175000.00, 175000.00),
+
+-- Factura 5
+(5, 19, 1, 420000.00, 420000.00),
+(5, 35, 1, 200000.00, 200000.00),
+(5, 29, 1, 550000.00, 550000.00),
+(5, 30, 1, 130000.00, 130000.00);
 
 -- Insertar en FACTURA_COMPRA
 INSERT INTO FACTURA_COMPRA (fcom_fecha, fcom_total, fcom_metodo_pago, act_documento) VALUES
