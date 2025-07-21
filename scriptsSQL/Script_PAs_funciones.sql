@@ -206,13 +206,13 @@ CREATE PROCEDURE sp_crear_factura_venta(
     IN p_fecha DATE,
     IN p_total DECIMAL(10,2),
     IN p_metodo_pago VARCHAR(45),
-    IN p_act_documento INT,
-    OUT p_fven_codigo INT
+    IN p_act_documento INT
 )
 BEGIN
     INSERT INTO FACTURA_VENTA (fven_fecha, fven_total, fven_metodo_pago, act_documento)
     VALUES (p_fecha, p_total, p_metodo_pago, p_act_documento);
-    SET p_fven_codigo = LAST_INSERT_ID();
+    
+    SELECT LAST_INSERT_ID() AS idFactura;
 END //
 DELIMITER ;
 
@@ -231,9 +231,6 @@ BEGIN
     ) VALUES (
         p_fven_codigo, p_prod_id, p_cantidad, p_precio_unitario, p_subtotal
     );
-    UPDATE articulo
-    SET art_cantidad_disponible = art_cantidad_disponible - p_cantidad
-    WHERE prod_id = p_prod_id;
     -- HACER CON TRIGGER Y TRANSACCION
 END //
 DELIMITER ;
@@ -535,13 +532,169 @@ BEGIN
 END //
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS sp_obtener_actor_por_documento;
+DELIMITER //
+CREATE PROCEDURE sp_obtener_actor_por_documento(
+    IN p_documento INT
+)
+BEGIN
+    SELECT act_nombre, act_direccion, act_telefono, act_correo, act_estado_juridico
+    FROM actor
+    WHERE act_documento = p_documento;
+END //
+DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS sp_cargar_cuentas_por_cobrar;
+DELIMITER //
+CREATE PROCEDURE sp_cargar_cuentas_por_cobrar()
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS sp_buscar_cuenta_por_id;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_cuenta_por_id(IN p_id_cuenta VARCHAR(20))
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento
+    WHERE cuenta_por_cobrar.cxc_id_cuenta = p_id_cuenta;
+END //
+DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS sp_buscar_cuenta_por_fecha_emision;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_cuenta_por_fecha_emision(IN p_fecha DATE)
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento
+    WHERE cxc_fecha_emision = p_fecha;
+END //
+DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS sp_buscar_cuenta_por_documento;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_cuenta_por_documento(IN p_documento VARCHAR(20))
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento
+    WHERE actor.act_documento = p_documento;
+END //
+DELIMITER ;
 
+
+DROP PROCEDURE IF EXISTS sp_filtrar_cuentas_en_curso;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_cuentas_en_curso()
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento
+    WHERE plcob_estado_cobro = 'En curso';
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_cuentas_vencidas;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_cuentas_vencidas()
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento
+    WHERE plcob_estado_cobro = 'Vencido';
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_cuentas_pagadas;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_cuentas_pagadas()
+BEGIN
+    SELECT  
+        cuenta_por_cobrar.cxc_id_cuenta, 
+        cxc_fecha_emision, 
+        plcob_fecha_vencimiento, 
+        plcob_plazo, 
+        cxc_total_deuda, 
+        plcob_valor_pagado, 
+        plcob_estado_cobro, 
+        actor.act_documento, 
+        actor.act_nombre
+    FROM CUENTA_POR_COBRAR 
+    JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta 
+    JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento
+    WHERE plcob_estado_cobro = 'Pagada';
+END //
+DELIMITER ;
 
 
 

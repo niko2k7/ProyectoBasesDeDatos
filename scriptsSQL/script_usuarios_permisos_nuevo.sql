@@ -68,9 +68,25 @@ GRANT EXECUTE ON PROCEDURE sp_buscar_factura_por_documento TO 'rol_ventas'@'loca
 GRANT EXECUTE ON PROCEDURE sp_filtrar_facturas_efectivo TO 'rol_ventas'@'localhost';
 GRANT EXECUTE ON PROCEDURE sp_filtrar_facturas_tarjeta TO 'rol_ventas'@'localhost';
 GRANT EXECUTE ON PROCEDURE sp_filtrar_facturas_transferencia TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_obtener_datos_cliente TO 'ventas_user'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_cargar_articulos_factura TO 'ventas_user'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_cargar_servicios_factura TO 'ventas_user'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_obtener_datos_cliente TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_cargar_articulos_factura TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_cargar_servicios_factura TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_obtener_actor_por_documento TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_cargar_cuentas_por_cobrar TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_cuenta_por_id TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_cuenta_por_fecha_emision TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_cuenta_por_documento TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_cuentas_en_curso TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_cuentas_vencidas TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_cuentas_pagadas TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE proyecto_base_datos.sp_crear_factura_venta TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE proyecto_base_datos.sp_agregar_detalle_venta TO 'rol_ventas'@'localhost';
+
+
+
+
+
+
 
 
 

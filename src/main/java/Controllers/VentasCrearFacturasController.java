@@ -5,7 +5,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.Locale;
 
 import DataBase.DataBaseConnection;
@@ -206,17 +205,17 @@ public class VentasCrearFacturasController {
             BigDecimal totalFactura = new BigDecimal(txtTotal.getText().replace(",", "."));
 
             // 1. Crear factura
-            CallableStatement stmtFactura = conn.prepareCall("{call sp_crear_factura_venta(?, ?, ?, ?, ?)}");
-            
+            CallableStatement stmtFactura = conn.prepareCall("{call sp_crear_factura_venta(?, ?, ?, ?)}");
             stmtFactura.setDate(1, new java.sql.Date(System.currentTimeMillis()));
             stmtFactura.setBigDecimal(2, totalFactura);
             stmtFactura.setString(3, txtMetodoPago.getText());
             stmtFactura.setInt(4, documentoCliente);
-            stmtFactura.registerOutParameter(5, Types.INTEGER);
-            
-            stmtFactura.execute();
 
-            int idFactura = stmtFactura.getInt(5);
+            ResultSet rs = stmtFactura.executeQuery();
+            int idFactura = 0;
+            if (rs.next()) {
+            idFactura = rs.getInt("idFactura");
+}
 
             // 2. Insertar detalles de artículos
             for (DetalleFacturaArticulo detalle : detalleFacturaArticulos) {

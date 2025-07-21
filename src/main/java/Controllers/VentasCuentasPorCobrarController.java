@@ -1,8 +1,8 @@
 package Controllers;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import DataBase.DataBaseConnection;
 import Models.CuentaPorCobrar;
@@ -54,10 +54,8 @@ public class VentasCuentasPorCobrarController {
         listaCuentas.clear();
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT  cuenta_por_cobrar.cxc_id_cuenta, cxc_fecha_emision, plcob_fecha_vencimiento, plcob_plazo, cxc_total_deuda, plcob_valor_pagado, plcob_estado_cobro, actor.act_documento, actor.act_nombre " +
-                "FROM CUENTA_POR_COBRAR JOIN PLAZO_COBRO ON CUENTA_POR_COBRAR.cxc_id_cuenta = PLAZO_COBRO.cxc_id_cuenta JOIN ACTOR ON CUENTA_POR_COBRAR.act_documento = actor.act_documento;");
+            CallableStatement stmt = conn.prepareCall("{CALL sp_cargar_cuentas_por_cobrar()}");
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 CuentaPorCobrar cxc = new CuentaPorCobrar(
@@ -81,31 +79,198 @@ public class VentasCuentasPorCobrarController {
 
     // Búsquedas
     @FXML
-    private void buscarPorId(){
+    private void buscarPorId() {
+        listaCuentas.clear();
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            CallableStatement stmt = conn.prepareCall("{CALL sp_buscar_cuenta_por_id(?)}");
+            stmt.setString(1, txtId.getText());
 
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CuentaPorCobrar cxc = new CuentaPorCobrar(
+                    rs.getString("cxc_id_cuenta"),
+                    rs.getString("cxc_fecha_emision"),
+                    rs.getString("plcob_fecha_vencimiento"),
+                    rs.getString("plcob_plazo"),
+                    rs.getString("cxc_total_deuda"),
+                    rs.getString("plcob_valor_pagado"),
+                    rs.getString("plcob_estado_cobro"),
+                    rs.getString("act_documento"),
+                    rs.getString("act_nombre")
+                );
+                listaCuentas.add(cxc);
+            }
+
+            tablaCuentasPorCobrar.setItems(listaCuentas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
     @FXML
-    private void buscarPorFechaEmision(){
+    private void buscarPorFechaEmision() {
+        listaCuentas.clear();
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            CallableStatement stmt = conn.prepareCall("{CALL sp_buscar_cuenta_por_fecha_emision(?)}");
+            stmt.setString(1, txtFechaEmision.getText());
 
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CuentaPorCobrar cxc = new CuentaPorCobrar(
+                    rs.getString("cxc_id_cuenta"),
+                    rs.getString("cxc_fecha_emision"),
+                    rs.getString("plcob_fecha_vencimiento"),
+                    rs.getString("plcob_plazo"),
+                    rs.getString("cxc_total_deuda"),
+                    rs.getString("plcob_valor_pagado"),
+                    rs.getString("plcob_estado_cobro"),
+                    rs.getString("act_documento"),
+                    rs.getString("act_nombre")
+                );
+                listaCuentas.add(cxc);
+            }
+
+            tablaCuentasPorCobrar.setItems(listaCuentas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
     @FXML
-    private void buscarPorDocumento(){
+    private void buscarPorDocumento() {
+        listaCuentas.clear();
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            CallableStatement stmt = conn.prepareCall("{CALL sp_buscar_cuenta_por_documento(?)}");
+            stmt.setString(1, txtDocumento.getText());
 
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CuentaPorCobrar cxc = new CuentaPorCobrar(
+                    rs.getString("cxc_id_cuenta"),
+                    rs.getString("cxc_fecha_emision"),
+                    rs.getString("plcob_fecha_vencimiento"),
+                    rs.getString("plcob_plazo"),
+                    rs.getString("cxc_total_deuda"),
+                    rs.getString("plcob_valor_pagado"),
+                    rs.getString("plcob_estado_cobro"),
+                    rs.getString("act_documento"),
+                    rs.getString("act_nombre")
+                );
+                listaCuentas.add(cxc);
+            }
+
+            tablaCuentasPorCobrar.setItems(listaCuentas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     @FXML
     private void filtrarVerTodas(){
-        
+        cargarDatosDesdeBD();
     }
-    @FXML
-    private void filtrarEnCurso(){
 
-    }
     @FXML
-    private void filtrarVencidas(){
-        
+    private void filtrarEnCurso() {
+        listaCuentas.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            CallableStatement stmt = conn.prepareCall("{CALL sp_filtrar_cuentas_en_curso()}");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CuentaPorCobrar cxc = new CuentaPorCobrar(
+                    rs.getString("cxc_id_cuenta"),
+                    rs.getString("cxc_fecha_emision"),
+                    rs.getString("plcob_fecha_vencimiento"),
+                    rs.getString("plcob_plazo"),
+                    rs.getString("cxc_total_deuda"),
+                    rs.getString("plcob_valor_pagado"),
+                    rs.getString("plcob_estado_cobro"),
+                    rs.getString("act_documento"),
+                    rs.getString("act_nombre")
+                );
+                listaCuentas.add(cxc);
+            }
+
+            tablaCuentasPorCobrar.setItems(listaCuentas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
     @FXML
-    private void filtrarPagadas(){
-        
+    private void filtrarVencidas() {
+        listaCuentas.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            CallableStatement stmt = conn.prepareCall("{CALL sp_filtrar_cuentas_vencidas()}");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CuentaPorCobrar cxc = new CuentaPorCobrar(
+                    rs.getString("cxc_id_cuenta"),
+                    rs.getString("cxc_fecha_emision"),
+                    rs.getString("plcob_fecha_vencimiento"),
+                    rs.getString("plcob_plazo"),
+                    rs.getString("cxc_total_deuda"),
+                    rs.getString("plcob_valor_pagado"),
+                    rs.getString("plcob_estado_cobro"),
+                    rs.getString("act_documento"),
+                    rs.getString("act_nombre")
+                );
+                listaCuentas.add(cxc);
+            }
+
+            tablaCuentasPorCobrar.setItems(listaCuentas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
+    @FXML
+    private void filtrarPagadas() {
+        listaCuentas.clear();
+
+        try {
+            Connection conn = DataBaseConnection.getActiveConnection();
+            CallableStatement stmt = conn.prepareCall("{CALL sp_filtrar_cuentas_pagadas()}");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                CuentaPorCobrar cxc = new CuentaPorCobrar(
+                    rs.getString("cxc_id_cuenta"),
+                    rs.getString("cxc_fecha_emision"),
+                    rs.getString("plcob_fecha_vencimiento"),
+                    rs.getString("plcob_plazo"),
+                    rs.getString("cxc_total_deuda"),
+                    rs.getString("plcob_valor_pagado"),
+                    rs.getString("plcob_estado_cobro"),
+                    rs.getString("act_documento"),
+                    rs.getString("act_nombre")
+                );
+                listaCuentas.add(cxc);
+            }
+
+            tablaCuentasPorCobrar.setItems(listaCuentas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
