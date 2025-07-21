@@ -1,0 +1,32 @@
+{
+    "act_documento": "123456789",
+    "act_nombre": "Empresa ABC S.A.S.",
+    "act_direccion": "Calle 10 # 20-30",
+    "act_telefono": "3001234567",
+    "act_correo": "contacto@empresaabc.com",
+    "act_estado_juridico": "Juridica",
+    "cuentas_por_cobrar": 
+        {
+            "cxc_id": 4000,
+            "cxc_fecha_emision": {
+                "$date": "2024-06-15T00:00:00Z"
+            },
+            "cxc_total_deuda": 5000.00,
+            "cxc_saldo": 2000.00,
+            "plazos_cobro": [
+                {
+                    "plcob_id": 6000,
+                    "plcob_plazo": 1,
+                    "plcob_fecha_vencimiento": {
+                        "$date": "2024-07-15T00:00:00Z"
+                    },
+                    "plcob_valor_cuota": 1000.00,
+                    "plcob_valor_pagado": 1000.00,
+                    "plcob_fecha_pago_final": {
+                        "$date": "2024-07-10T00:00:00Z"
+                    },
+                    "plcob_estado_cobro": "PAGADO"
+                }
+            ]
+        }
+}

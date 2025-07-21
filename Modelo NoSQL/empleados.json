@@ -1,0 +1,38 @@
+{
+    "act_documento": "101",
+    "act_nombre": "Ana García",
+    "act_direccion": "Carrera 1 # 2-3",
+    "act_telefono": "3201112233",
+    "act_correo": "ana.garcia@wp4x4.com",
+    "act_estado_juridico": "Natural",
+    "emp_puesto": "Jefe de Taller",
+    "horarios": {
+            "hor_id": "HOR001",
+            "hor_num_dias_laborales": 3,
+            "hor_hora_inicio": "08:00",
+            "hor_hora_fin": "17:00"
+        }
+    ,
+    "salario": [
+        {
+            "sal_numero_de_pago": "SAL202406-001",
+            "sal_fecha": {
+                "$date": "2024-06-30T00:00:00Z"
+            },
+            "sal_salario_base": 1500.00,
+            "sal_comisiones": 200.00,
+            "sal_anticipos": 50.00,
+            "sal_total_pago": 1650.00
+        },
+        {
+            "sal_numero_de_pago": "SAL202405-001",
+            "sal_fecha": {
+                "$date": "2024-05-30T00:00:00Z"
+            },
+            "sal_salario_base": 1500.00,
+            "sal_comisiones": 150.00,
+            "sal_anticipos": 0.00,
+            "sal_total_pago": 1650.00
+        }
+    ]
+}

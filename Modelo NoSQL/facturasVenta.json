@@ -1,0 +1,23 @@
+{
+    "act_documento": "123456789",
+    "fven_codigo": 2000,
+    "fven_fecha": {
+        "$date": "2024-07-20T10:30:00Z"
+    },
+    "fven_total": 750.00,
+    "fven_metodo_pago": "Tarjeta Credito",
+    "detalles_venta": [
+        {
+            "prod_id": 3000,
+            "dfv_cantidad": 2,
+            "dfv_precio_unitario": 250.00,
+            "dfv_subtotal": 500.00
+        },
+        {
+            "prod_id": 3001,
+            "dfv_cantidad": 1,
+            "dfv_precio_unitario": 50.00,
+            "dfv_subtotal": 50.00
+        }
+    ]
+}

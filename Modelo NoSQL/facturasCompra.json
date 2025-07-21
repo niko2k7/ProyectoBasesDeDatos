@@ -1,0 +1,28 @@
+{
+    "act_documento": "123456789",
+    "fcom_codigo": 2000,
+    "fcom_fecha": {
+        "$date": "2024-07-15T14:00:00Z"
+    },
+    "fcom_total": 5000.00,
+    "fcom_metodo_pago": "Transferencia",
+    "proveedor_info": {
+        "prov_id": "987654321-prov",
+        "nombre": "Distribuidora XYZ Ltda.",
+        "correo": "ventas@xyz.com"
+    },
+    "detalles_compra": [
+        {
+            "prod_id": "PROD-LLANTA001",
+            "dfc_cantidad": 20,
+            "dfc_precio_unitario": 200.00,
+            "dfc_subtotal": 4000.00
+        },
+        {
+            "prod_id": "PROD-VALVULA001",
+            "dfc_cantidad": 100,
+            "dfc_precio_unitario": 10.00,
+            "dfc_subtotal": 1000.00
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "act_documento": ["123456789", "987654321"],
+    "prod_id": 3000,
+    "prod_tipo": "SERVICIO",
+    "prod_precio": 50.00,
+    "serv_id": "PROD-SERVICIO001",
+    "serv_nombre": "Montaje y Balanceo",
+    "serv_descripcion": "Montaje y balanceo de la llanta",
+    "empleado_info": {
+        "emp_id": "emp-101",
+        "nombre": "Ana García",
+        "puesto": "Jefe de Taller"
+    },
+    "materiales_usados": [
+        {
+            "mat_id": "MAT-001",
+            "mat_nombre": "Llave Inglesa Ajustable",
+            "mat_descripción": "Llave para ajustar tuercas y pernos",
+            "mat_cantidad": 1,
+            "mat_costo": 50.00
+        },
+        {
+            "mat_id": "MAT-002",
+            "mat_nombre": "Grasa Multiusos",
+            "mat_descripción": "Grasa de litio para lubricación general",
+            "mat_cantidad": 0.5,
+            "mat_costo": 50.00
+        }
+    ]
+}

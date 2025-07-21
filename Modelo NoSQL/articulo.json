@@ -1,0 +1,11 @@
+{
+    "prod_id": 3040,
+    "prod_tipo": "ARTICULO",
+    "prod_precio": 250.00,
+    "articulo_detalle": { 
+        "art_tipo": "Llanta de Verano",
+        "art_marca": "Michelin",
+        "art_modelo": "Pilot Sport 4",
+        "art_cantidad_disponible": 150
+    }
+}

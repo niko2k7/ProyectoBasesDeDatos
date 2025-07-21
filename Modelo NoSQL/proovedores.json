@@ -1,0 +1,46 @@
+{
+    "act_documento": "987654321",
+    "act_nombre": "Distribuidora XYZ Ltda.",
+    "act_direccion": "Avenida 50 # 10-15",
+    "act_telefono": "6019876543",
+    "act_correo": "ventas@xyz.com",
+    "act_estado_juridico": "Juridica",
+    "cuentas_por_pagar": [
+        {
+            "cxp_id": 5000,
+            "cxp_fecha_emision": {
+                "$date": "2024-05-01T00:00:00Z"
+            },
+            "cxp_total_deuda": 7500.00,
+            "cxp_saldo": 1500.00,
+            "plazos_pago": [
+                {
+                    "plpag_id": 5000,
+                    "plpag_plazo": 1,
+                    "plpag_fecha_vencimiento": {
+                        "$date": "2024-06-01T00:00:00Z"
+                    },
+                    "plpag_valor_cuota": 2500.00,
+                    "plpag_valor_pagado": 2500.00,
+                    "plpag_fecha_pago_final": {
+                        "$date": "2024-05-30T00:00:00Z"
+                    },
+                    "plpag_estado_pago": "PAGADO"
+                },
+                {
+                    "plpag_id": 5001,
+                    "plpag_plazo": 2,
+                    "plpag_fecha_vencimiento": {
+                        "$date": "2024-07-01T00:00:00Z"
+                    },
+                    "plpag_valor_cuota": 2500.00,
+                    "plpag_valor_pagado": 1000.00,
+                    "plpag_fecha_pago_final": {
+                        "$date": "2024-07-01T00:00:00Z"
+                    },
+                    "plpag_estado_pago": "PENDIENTE"
+                }
+            ]
+        }
+    ]
+}
