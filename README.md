@@ -18,7 +18,10 @@ Autores:
 
 Docente: Elizabeth León Guzmán 
 <br><br>
-
+---
+## Video expositivo 
+<br>
+https://drive.google.com/file/d/1KMv_0GHxHoyV7ITeG7rZxQtDtQ3yfWVk/view?usp=sharing
 ---
 
 ## Contenido
