@@ -112,10 +112,8 @@ public class VentasClientesController {
 
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            // Usar
-                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
-                // ResultSet = stmt.executeQuery();
-            Statement stmt = conn.createStatement();
+            CallableStatement stmt = conn.prepareCall("{call sp_obtener_clientes}");
+
             ResultSet rs = stmt.executeQuery("select * from actor WHERE act_tipo = 'Cliente'");
 
             while (rs.next()) {
@@ -140,10 +138,7 @@ public class VentasClientesController {
     private void crearCliente(){
         try {
         Connection conn = DataBaseConnection.getActiveConnection();
-        PreparedStatement stmt = conn.prepareStatement(
-            "INSERT INTO actor (act_documento, act_tipo, act_nombre, act_direccion, act_telefono, act_correo, act_estado_juridico) " +
-            "VALUES (?, 'CLIENTE', ?, ?, ?, ?, ?)"
-        );
+        CallableStatement stmt = conn.prepareCall("{CALL sp_insertar_cliente(?, ?, ?, ?, ?, ?)}");
 
         stmt.setInt(1, Integer.parseInt(crearClienteDocumento.getText())); // act_documento
         stmt.setString(2, crearClienteNombre.getText());                   // act_nombre
@@ -153,7 +148,7 @@ public class VentasClientesController {
         stmt.setString(6, crearClienteEstadoJuridico.getText());          // act_estado_juridico
         stmt.executeUpdate(); // Mejor que .execute() para INSERT
         
-         // 2. Insertar en CLIENTE
+         // 2. Insertar en CLIENTE, se reemplaza con un trigger
         PreparedStatement stmtCliente = conn.prepareStatement(
             "INSERT INTO cliente (act_documento) VALUES (?)"
         );
@@ -187,19 +182,17 @@ public class VentasClientesController {
     private void actualizarCliente(){
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            // CallableStatement stmt = conn.prepareCall("{call actualizar_cliente(?, ?, ?, ?, ?, ?)}");
-            PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE actor SET act_nombre = ?, act_direccion = ?, act_telefono = ?, act_correo = ?, act_estado_juridico = ? WHERE act_documento = ?"
-            );
+            // CallableStatement stmt = conn.prepareCall("{call sp_actualizar_cliente(?, ?, ?, ?, ?, ?)}");
+            CallableStatement stmt = conn.prepareCall("{CALL sp_actualizar_actor(?, ?, ?, ?, ?, ?)}");
 
-            stmt.setString(1, actualizarClienteNombre.getText());
-            stmt.setString(2, actualizarClienteDireccion.getText());
-            stmt.setString(3, actualizarClienteTelefono.getText());
-            stmt.setString(4, actualizarClienteCorreo.getText());
-            stmt.setString(5, actualizarClienteEstadoJuridico.getText());
-            stmt.setString(6, actualizarClienteDocumento.getText()); // WHERE act_documento = ?
+            stmt.setInt(1, Integer.parseInt(actualizarClienteDocumento.getText()));
+            stmt.setString(2, actualizarClienteNombre.getText());
+            stmt.setString(3, actualizarClienteDireccion.getText());
+            stmt.setString(4, actualizarClienteTelefono.getText());
+            stmt.setString(5, actualizarClienteCorreo.getText());
+            stmt.setString(6, actualizarClienteEstadoJuridico.getText()); // Debe ser 'NATURAL' o 'JURIDICA'
 
-            stmt.executeUpdate(); // Mejor que .execute() para UPDATE
+            stmt.execute();
 
             cargarDatosDesdeBD();
 
@@ -218,14 +211,11 @@ public class VentasClientesController {
     private void eliminarCliente(Cliente cliente){
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            PreparedStatement stmt = conn.prepareStatement(
-            "DELETE FROM servicio WHERE prod_id= ?"
-            );
+            CallableStatement stmt = conn.prepareCall("{CALL eliminar_cliente(?)}");
             stmt.setInt(1, Integer.parseInt(cliente.getDocumento()));
             stmt.executeUpdate();
             // llamar trigger que borre lo relacionado al servicio, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
             System.out.println("Cliente eliminado correctamente");
-
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
             System.out.println("Intento de borrado un cliente sin los permisos necesarios.");

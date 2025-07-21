@@ -3,7 +3,6 @@ package Controllers;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -176,10 +175,7 @@ public class VentasCrearFacturasController {
                 // Usar
                     // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                     // ResultSet = stmt.executeQuery();
-                PreparedStatement stmt = conn.prepareStatement(
-                "SELECT act_nombre, act_direccion, act_telefono, act_correo, act_estado_juridico "
-                + "FROM actor WHERE act_documento = ?"
-                );
+                CallableStatement stmt = conn.prepareCall("{CALL sp_obtener_actor_por_documento(?)}");
                 stmt.setString(1, documento);
 
                 ResultSet rs = stmt.executeQuery();
@@ -210,7 +206,7 @@ public class VentasCrearFacturasController {
             BigDecimal totalFactura = new BigDecimal(txtTotal.getText().replace(",", "."));
 
             // 1. Crear factura
-            CallableStatement stmtFactura = conn.prepareCall("{call crear_factura_venta(?, ?, ?, ?, ?)}");
+            CallableStatement stmtFactura = conn.prepareCall("{call sp_crear_factura_venta(?, ?, ?, ?, ?)}");
             
             stmtFactura.setDate(1, new java.sql.Date(System.currentTimeMillis()));
             stmtFactura.setBigDecimal(2, totalFactura);
@@ -224,7 +220,7 @@ public class VentasCrearFacturasController {
 
             // 2. Insertar detalles de artículos
             for (DetalleFacturaArticulo detalle : detalleFacturaArticulos) {
-                CallableStatement stmtDetalle = conn.prepareCall("{call agregar_detalle_factura(?, ?, ?, ?, ?)}");
+                CallableStatement stmtDetalle = conn.prepareCall("{call sp_agregar_detalle_factura(?, ?, ?, ?, ?)}");
                 stmtDetalle.setInt(1, idFactura);
                 stmtDetalle.setInt(2, Integer.parseInt(detalle.getId()));
                 stmtDetalle.setInt(3, Integer.parseInt(detalle.getCantidad()));
@@ -235,7 +231,7 @@ public class VentasCrearFacturasController {
 
             // 3. Insertar detalles de servicios
             for (DetalleFacturaServicio servicio : detalleFacturaServicios) {
-                CallableStatement stmtDetalle = conn.prepareCall("{call agregar_detalle_factura(?, ?, ?, ?, ?)}");
+                CallableStatement stmtDetalle = conn.prepareCall("{call sp_agregar_detalle_factura(?, ?, ?, ?, ?)}");
                 stmtDetalle.setInt(1, idFactura);
                 stmtDetalle.setInt(2, Integer.parseInt(servicio.getId()));
                 stmtDetalle.setInt(3, 1); // Servicios suelen tener cantidad 1

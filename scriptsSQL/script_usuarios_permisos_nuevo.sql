@@ -38,21 +38,25 @@ GRANT SELECT ON proyecto_base_datos.* TO 'rol_gerente'@'localhost';
 -- No acceso a costos de compra o salarios.
 GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.ACTOR TO 'rol_ventas'@'localhost';
 GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.CLIENTE TO 'rol_ventas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.FACTURA_VENTA TO 'rol_ventas'@'localhost';
-GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.DETALLE_FACTURA_VENTA TO 'rol_ventas'@'localhost';
+GRANT SELECT, INSERT ON proyecto_base_datos.FACTURA_VENTA TO 'rol_ventas'@'localhost';
+GRANT SELECT, INSERT ON proyecto_base_datos.DETALLE_FACTURA_VENTA TO 'rol_ventas'@'localhost';
 GRANT SELECT ON proyecto_base_datos.PRODUCTO TO 'rol_ventas'@'localhost'; -- Solo consulta de productos (incluye precios de venta)
 GRANT SELECT ON proyecto_base_datos.SERVICIO TO 'rol_ventas'@'localhost';   -- Para consultar stock
 GRANT SELECT, UPDATE ON proyecto_base_datos.ARTICULO TO 'rol_ventas'@'localhost';   -- Para consultar stock
-GRANT SELECT, INSERT ON proyecto_base_datos.CUENTA_POR_COBRAR TO 'rol_ventas'@'localhost'; -- Creación de cuentas por cobrar al vender a crédito
-GRANT SELECT, INSERT, UPDATE ON proyecto_base_datos.PLAZO_COBRO TO 'rol_ventas'@'localhost'; -- Registrar plazos y actualizar estados de cuotas
+GRANT SELECT ON proyecto_base_datos.CUENTA_POR_COBRAR TO 'rol_ventas'@'localhost'; -- Creación de cuentas por cobrar al vender a crédito
+GRANT SELECT ON proyecto_base_datos.PLAZO_COBRO TO 'rol_ventas'@'localhost'; -- Registrar plazos y actualizar estados de cuotas
 
 -- Permisos de VISTAS específicos para 'rol_ventas'
 GRANT SELECT ON proyecto_base_datos.Vista_Inventario_Consulta TO 'rol_ventas'@'localhost';
 GRANT SELECT ON proyecto_base_datos.Vista_Cuentas_Cobrar_Resumen TO 'rol_ventas'@'localhost';
 
 -- Permisos de PA
-GRANT EXECUTE ON PROCEDURE crear_factura_venta TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE agregar_detalle_factura TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_obtener_clientes TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_insertar_cliente TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_actualizar_actor TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_eliminar_cliente TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_crear_factura_venta TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_agregar_detalle_factura TO 'rol_ventas'@'localhost';
 
 
 
@@ -78,7 +82,6 @@ GRANT SELECT ON proyecto_base_datos.Vista_Ventas_Historico TO 'rol_contabilidad'
 GRANT SELECT ON proyecto_base_datos.Vista_Cuentas_Cobrar_Resumen TO 'rol_contabilidad'@'localhost';
 GRANT SELECT ON proyecto_base_datos.Vista_Cuentas_Pagar_Resumen TO 'rol_contabilidad'@'localhost';
 GRANT SELECT ON proyecto_base_datos.Vista_Nomina_Resumen TO 'rol_contabilidad'@'localhost';
-
 
 -- 3.5. Permisos para 'rol_almacen_taller'
 -- Gestión y consulta de materiales y herramientas, registro de prestación de servicios.

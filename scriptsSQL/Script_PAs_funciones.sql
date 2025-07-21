@@ -6,8 +6,8 @@
 -- Descripción: Calcula la ganancia neta de cada producto, restando el costo total de compra
 --              (considerando todas las unidades vendidas) del ingreso total generado por sus ventas.
 --              Esto permite identificar qué productos son los más y menos rentables.
+DROP PROCEDURE IF EXISTS ObtenerRentabilidadPorProducto;
 DELIMITER //
-
 CREATE PROCEDURE ObtenerRentabilidadPorProducto()
 BEGIN
     SELECT
@@ -48,8 +48,8 @@ DELIMITER ;
 -- Descripción: Determina el valor total de los servicios prestados por cada empleado
 --              y compáralo con sus salarios y comisiones para evaluar la contribución
 --              individual y la rentabilidad de la fuerza laboral en servicios.
+DROP PROCEDURE IF EXISTS ObtenerEficaciaServiciosPorEmpleado;
 DELIMITER //
-
 CREATE PROCEDURE ObtenerEficaciaServiciosPorEmpleado()
 BEGIN
     SELECT
@@ -85,8 +85,8 @@ DELIMITER ;
 -- Proyección de cuentas por pagar (Anterior consulta 11)
 -- Descripción: Mostrar todas las facturas de compra con cuotas pendientes, agrupadas por proveedor,
 --              y calcular el total por pagar en los próximos 30, 60 y 90 días.
+DROP PROCEDURE IF EXISTS ProyeccionCuentasPorPagar;
 DELIMITER //
-
 CREATE PROCEDURE ProyeccionCuentasPorPagar()
 BEGIN
     SELECT
@@ -122,6 +122,82 @@ select * from factura_venta;
 
 
 ##### Necesarios para la interfaz:
+# Obtener
+DROP PROCEDURE IF EXISTS sp_obtener_clientes;
+DELIMITER //
+CREATE PROCEDURE sp_obtener_clientes()
+	BEGIN
+		SELECT * FROM actor WHERE act_tipo = 'Cliente';
+	END //
+DELIMITER ;
+
+# Insertar
+DROP PROCEDURE IF EXISTS sp_insertar_cliente;
+DELIMITER //
+CREATE PROCEDURE sp_insertar_cliente (
+    IN p_documento INT,
+    IN p_nombre VARCHAR(100),
+    IN p_direccion VARCHAR(200),
+    IN p_telefono VARCHAR(20),
+    IN p_correo VARCHAR(100),
+    IN p_estado_juridico VARCHAR(20)
+)
+BEGIN
+    INSERT INTO actor (
+        act_documento,
+        act_tipo,
+        act_nombre,
+        act_direccion,
+        act_telefono,
+        act_correo,
+        act_estado_juridico
+    )
+    VALUES (
+        p_documento,
+        'CLIENTE',         -- Fijo
+        p_nombre,
+        p_direccion,
+        p_telefono,
+        p_correo,
+        p_estado_juridico
+    );
+    
+    -- FALTA EL TRIGGERS
+END //
+DELIMITER ;
+
+# Actualizar
+DROP PROCEDURE IF EXISTS sp_actualizar_actor;
+DELIMITER //
+CREATE PROCEDURE sp_actualizar_actor(
+    IN p_documento INT,
+    IN p_nombre VARCHAR(45),
+    IN p_direccion VARCHAR(45),
+    IN p_telefono VARCHAR(13),
+    IN p_correo VARCHAR(45),
+    IN p_estado_juridico ENUM('NATURAL', 'JURIDICA')
+)
+BEGIN
+    UPDATE actor
+    SET 
+        act_nombre = p_nombre,
+        act_direccion = p_direccion,
+        act_telefono = p_telefono,
+        act_correo = p_correo,
+        act_estado_juridico = p_estado_juridico
+    WHERE act_documento = p_documento;
+END //
+DELIMITER ;
+
+# Borrar
+DROP PROCEDURE IF EXISTS sp_eliminar_cliente;
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_cliente(IN p_documento INT)
+BEGIN
+    DELETE FROM cliente WHERE act_documento = p_documento;
+    DELETE FROM actor WHERE act_documento = p_documento AND act_tipo = 'CLIENTE';
+END //
+DELIMITER ;
 
 ##### Para agregar una factura junto con sus detalles de venta
 DROP PROCEDURE IF EXISTS sp_crear_factura_venta;
@@ -136,7 +212,6 @@ CREATE PROCEDURE sp_crear_factura_venta(
 BEGIN
     INSERT INTO FACTURA_VENTA (fven_fecha, fven_total, fven_metodo_pago, act_documento)
     VALUES (p_fecha, p_total, p_metodo_pago, p_act_documento);
-
     SET p_fven_codigo = LAST_INSERT_ID();
 END //
 DELIMITER ;
@@ -156,10 +231,10 @@ BEGIN
     ) VALUES (
         p_fven_codigo, p_prod_id, p_cantidad, p_precio_unitario, p_subtotal
     );
-
     UPDATE articulo
     SET art_cantidad_disponible = art_cantidad_disponible - p_cantidad
     WHERE prod_id = p_prod_id;
+    -- HACER CON TRIGGER Y TRANSACCION
 END //
 DELIMITER ;
 
