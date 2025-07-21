@@ -17,19 +17,19 @@ Autores:
 - Omar Alejandro Blanco Pineda (oblancop@unal.edu.co) 
 
 Docente: Elizabeth León Guzmán 
+
 <br><br>
----
-## Video expositivo 
-<br>
-https://drive.google.com/file/d/1KMv_0GHxHoyV7ITeG7rZxQtDtQ3yfWVk/view?usp=sharing
 ---
 
 ## Contenido
+- [Requisitos](#requisitos)
+- [Ejecución Local en VSCode](#ejecución-local-en-VSCode)
+- [Enlaces Proyecto](#enlaces-proyecto)
 <br><br>
 
 ---
 
-## REQUISITOS:
+## Requisitos
 
   MYSQL:
   1. Tener instalado MYSQL... etc...
@@ -60,7 +60,8 @@ https://drive.google.com/file/d/1KMv_0GHxHoyV7ITeG7rZxQtDtQ3yfWVk/view?usp=shari
 ---
 
 
-## CORRER Y COMPILAR EL PROYECTO EN VSCODE:
+## Ejecución Local en VSCode
+
 1. Abrir el proyecto en vscode.
 2. Asegurarse de que está el archivo pom.xml
 3. Presionar Ctrl + Ñ
@@ -70,3 +71,8 @@ https://drive.google.com/file/d/1KMv_0GHxHoyV7ITeG7rZxQtDtQ3yfWVk/view?usp=shari
 
 ---
 
+## Enlaces Proyecto
+
+- Diagrama E/R: https://drive.google.com/file/d/19II5D9yWAxw-oznzSZEqxWfiEuNnxBIC/view?usp=drivesdk
+- Diseños en Figma: https://www.figma.com/design/QDuVCQTQv1b96pptmbenAm/Interfaz-proyecto-bases?node-id=0-1&t=zmUyUyV1Ts8RLNPs-1
+- Video explicativo: https://drive.google.com/file/d/1KMv_0GHxHoyV7ITeG7rZxQtDtQ3yfWVk/view?usp=sharing
