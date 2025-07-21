@@ -121,11 +121,12 @@ DELIMITER ;
 select * from factura_venta;
 
 
+##### Necesarios para la interfaz:
 
 ##### Para agregar una factura junto con sus detalles de venta
-DROP PROCEDURE IF EXISTS crear_factura_venta;
+DROP PROCEDURE IF EXISTS sp_crear_factura_venta;
 DELIMITER //
-CREATE PROCEDURE crear_factura_venta(
+CREATE PROCEDURE sp_crear_factura_venta(
     IN p_fecha DATE,
     IN p_total DECIMAL(10,2),
     IN p_metodo_pago VARCHAR(45),
@@ -140,9 +141,9 @@ BEGIN
 END //
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS agregar_detalle_factura;
+DROP PROCEDURE IF EXISTS sp_agregar_detalle_factura;
 DELIMITER //
-CREATE PROCEDURE agregar_detalle_factura(
+CREATE PROCEDURE sp_agregar_detalle_factura(
     IN p_fven_codigo INT,
     IN p_prod_id INT,
     IN p_cantidad INT,
@@ -161,6 +162,9 @@ BEGIN
     WHERE prod_id = p_prod_id;
 END //
 DELIMITER ;
+
+
+
 
 
 

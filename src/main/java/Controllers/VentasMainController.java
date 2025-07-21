@@ -12,6 +12,8 @@ public class VentasMainController {
 
     @FXML
     private BorderPane mainBorderPane;
+    @FXML
+    private Stage facturaStage;
 
     private void cargarVista(String archivoFXML) {
         try {
@@ -42,14 +44,14 @@ public class VentasMainController {
         cargarVista("ventas_ver_facturas.fxml");
     }
 
-    private Stage facturaStage;
+    
    @FXML
     private void cargarVistaCrearFacturas() {
     
         if (facturaStage != null && facturaStage.isShowing()) {
-        facturaStage.toFront();
-        return;
-    }
+            facturaStage.toFront();
+            return;
+        }
         try {
             // Cargar el archivo FXML y obtener el controlador
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventas_crear_facturas.fxml"));
@@ -72,14 +74,14 @@ public class VentasMainController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("❌ No se pudo abrir la ventana de Crear Factura");
+            System.out.println("No se pudo abrir la ventana de Crear Factura");
         }
     }
 
 
     @FXML
     private void cargarVistaCuentasPorCobrar() {
-        //cargarVista("ventas_crar_facturas.fxml");
+        cargarVista("ventas_cuentas_por_cobrar.fxml");
     }
 
     @FXML
