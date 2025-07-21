@@ -24,7 +24,6 @@ CREATE ROLE 'rol_almacen_taller'@'localhost';
 
 
 -- 3. Asignar permisos a cada ROL
-
 -- 3.1. Permisos para 'rol_administrador'
 -- Acceso total a todas las funcionalidades y datos del sistema.
 GRANT ALL PRIVILEGES ON proyecto_base_datos.* TO 'rol_administrador'@'localhost';
@@ -80,14 +79,7 @@ GRANT EXECUTE ON PROCEDURE sp_filtrar_cuentas_en_curso TO 'rol_ventas'@'localhos
 GRANT EXECUTE ON PROCEDURE sp_filtrar_cuentas_vencidas TO 'rol_ventas'@'localhost';
 GRANT EXECUTE ON PROCEDURE sp_filtrar_cuentas_pagadas TO 'rol_ventas'@'localhost';
 GRANT EXECUTE ON PROCEDURE proyecto_base_datos.sp_crear_factura_venta TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE proyecto_base_datos.sp_agregar_detalle_venta TO 'rol_ventas'@'localhost';
-
-
-
-
-
-
-
+GRANT EXECUTE ON PROCEDURE proyecto_base_datos.sp_agregar_detalle_factura TO 'rol_ventas'@'localhost';
 
 
 -- 3.4. Permisos para 'rol_contabilidad'
