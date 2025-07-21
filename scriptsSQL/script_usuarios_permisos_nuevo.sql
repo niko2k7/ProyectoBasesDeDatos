@@ -51,13 +51,26 @@ GRANT SELECT ON proyecto_base_datos.Vista_Inventario_Consulta TO 'rol_ventas'@'l
 GRANT SELECT ON proyecto_base_datos.Vista_Cuentas_Cobrar_Resumen TO 'rol_ventas'@'localhost';
 
 -- Permisos de PA
-GRANT EXECUTE ON PROCEDURE sp_obtener_clientes TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_insertar_cliente TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_actualizar_actor TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_eliminar_cliente TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_crear_factura_venta TO 'rol_ventas'@'localhost';
-GRANT EXECUTE ON PROCEDURE sp_agregar_detalle_factura TO 'rol_ventas'@'localhost';
-
+GRANT EXECUTE ON PROCEDURE sp_obtener_articulos TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_obtener_servicios TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_eliminar_articulo TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_eliminar_servicio TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_articulos_por_tipo TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_articulos_por_marca TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_articulos_por_modelo TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_stock_critico TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_sin_stock TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_obtener_facturas_venta TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_factura_por_codigo TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_facturas_por_fecha TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_facturas_por_intervalo TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_buscar_factura_por_documento TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_facturas_efectivo TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_facturas_tarjeta TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_filtrar_facturas_transferencia TO 'rol_ventas'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_obtener_datos_cliente TO 'ventas_user'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_cargar_articulos_factura TO 'ventas_user'@'localhost';
+GRANT EXECUTE ON PROCEDURE sp_cargar_servicios_factura TO 'ventas_user'@'localhost';
 
 
 

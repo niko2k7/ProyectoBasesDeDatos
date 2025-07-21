@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,9 +130,8 @@ public class VentasProductosController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible FROM producto NATURAL JOIN articulo");
+            CallableStatement stmt = conn.prepareCall("{CALL sp_obtener_articulos()}");
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Articulo articulo = new Articulo(
@@ -202,9 +202,8 @@ public class VentasProductosController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "select prod_id, serv_nombre, prod_precio, act_nombre from producto natural join servicio natural join actor");
+            CallableStatement stmt = conn.prepareCall("{CALL sp_obtener_servicios()}");
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Servicio servicio = new Servicio(
@@ -225,13 +224,10 @@ public class VentasProductosController {
     private void eliminarArticulo(Articulo articulo){
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            PreparedStatement stmt = conn.prepareStatement(
-            "DELETE FROM articulo WHERE prod_id=  ?"
-            );
+            CallableStatement stmt = conn.prepareCall("{CALL sp_eliminar_articulo(?)}");
             stmt.setInt(1, Integer.parseInt(articulo.getId()));
-            stmt.executeUpdate();
+            stmt.execute();
             // llamar trigger que borre lo relacionado al articulo, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
-            
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Intento de borrado un articulo sin los permisos necesarios.");
@@ -241,11 +237,9 @@ public class VentasProductosController {
     private void eliminarServicio(Servicio servicio){
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            PreparedStatement stmt = conn.prepareStatement(
-            "DELETE FROM servicio WHERE prod_id= ?"
-            );
+            CallableStatement stmt = conn.prepareCall("{CALL sp_eliminar_servicio(?)}");
             stmt.setInt(1, Integer.parseInt(servicio.getId()));
-            stmt.executeUpdate();
+            stmt.execute();
             // llamar trigger que borre lo relacionado al servicio, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
             
         } catch (Exception e) {
@@ -260,14 +254,9 @@ public class VentasProductosController {
         listaArticulos.clear();
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            // Usar
-                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
-                // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
-            "FROM producto NATURAL JOIN articulo WHERE art_tipo LIKE ?"
-            );
-            stmt.setString(1, "%" + txtBuscarArticuloTipo.getText() + "%"); // Búsqueda parcial
+            
+            CallableStatement stmt = conn.prepareCall("{CALL sp_buscar_articulos_por_tipo(?)}");
+            stmt.setString(1, txtBuscarArticuloTipo.getText());  // Sin %, ya lo maneja el SP
 
             ResultSet rs = stmt.executeQuery();
 
@@ -297,14 +286,9 @@ public class VentasProductosController {
 
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            // Usar
-                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
-                // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
-            "FROM producto NATURAL JOIN articulo WHERE art_marca LIKE ?"
-            );
-            stmt.setString(1, "%" + txtBuscarArticuloMarca.getText() + "%"); // Búsqueda parcial
+
+            CallableStatement stmt = conn.prepareCall("{CALL sp_buscar_articulos_por_marca(?)}");
+            stmt.setString(1, txtBuscarArticuloMarca.getText());
 
             ResultSet rs = stmt.executeQuery();
 
@@ -337,11 +321,8 @@ public class VentasProductosController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
-            "FROM producto NATURAL JOIN articulo WHERE art_modelo LIKE ?"
-            );
-            stmt.setString(1, "%" + txtBuscarArticuloModelo.getText() + "%"); // Búsqueda parcial
+            CallableStatement stmt = conn.prepareCall("{CALL sp_buscar_articulos_por_modelo(?)}");
+            stmt.setString(1, txtBuscarArticuloModelo.getText());
 
             ResultSet rs = stmt.executeQuery();
 
@@ -380,10 +361,7 @@ public class VentasProductosController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
-            "FROM producto NATURAL JOIN articulo WHERE art_cantidad_disponible <= 10"
-            );
+            CallableStatement stmt = conn.prepareCall("{CALL sp_filtrar_stock_critico()}");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -415,10 +393,7 @@ public class VentasProductosController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible " +
-            "FROM producto NATURAL JOIN articulo WHERE art_cantidad_disponible = 0"
-            );
+            CallableStatement stmt = conn.prepareCall("{CALL sp_filtrar_sin_stock()}");
 
             ResultSet rs = stmt.executeQuery();
 

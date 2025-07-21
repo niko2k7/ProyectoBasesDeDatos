@@ -1,7 +1,7 @@
 package Controllers;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import DataBase.DataBaseConnection;
@@ -78,10 +78,7 @@ public class VentasVerDetalleFacturasController {
             Connection conn = DataBaseConnection.getActiveConnection();
 
             // Consulta al cliente basado en el documento
-            PreparedStatement stmt = conn.prepareStatement(
-                "SELECT act_nombre, act_direccion, act_telefono, act_correo, act_estado_juridico " +
-                "FROM actor WHERE act_documento = ?"
-            );
+            CallableStatement stmt = conn.prepareCall("{CALL sp_obtener_datos_cliente(?)}");
             stmt.setString(1, factura.getDocumentoCliente());
             ResultSet rs = stmt.executeQuery();
 
@@ -113,8 +110,7 @@ public class VentasVerDetalleFacturasController {
         detalleFacturaArticulos.clear();
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT detalle_factura_venta.prod_id, art_tipo, art_marca, art_modelo, dfv_precio_unitario, dfv_cantidad, dfv_subtotal "+
-            "FROM detalle_factura_venta JOIN articulo ON detalle_factura_venta.prod_id = articulo.prod_id WHERE fven_codigo = ?;");
+            CallableStatement stmt = conn.prepareCall("{CALL sp_cargar_articulos_factura(?)}");
             stmt.setString(1, codigoFactura);
 
             ResultSet rs = stmt.executeQuery();
@@ -143,8 +139,7 @@ public class VentasVerDetalleFacturasController {
         detalleFacturaServicios.clear();
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT  detalle_factura_venta.prod_id, serv_nombre, prod_precio, act_nombre FROM DETALLE_FACTURA_VENTA JOIN SERVICIO ON detalle_factura_venta.prod_id = servicio.prod_id "+
-            "JOIN PRODUCTO ON producto.prod_id = servicio.prod_id JOIN ACTOR ON servicio.act_documento = actor.act_documento WHERE detalle_factura_venta.fven_codigo = ?;");
+            CallableStatement stmt = conn.prepareCall("{CALL sp_cargar_servicios_factura(?)}");
             stmt.setString(1, codigoFactura);
 
             ResultSet rs = stmt.executeQuery();

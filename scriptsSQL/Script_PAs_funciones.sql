@@ -239,6 +239,310 @@ END //
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS sp_obtener_articulos;
+DELIMITER //
+CREATE PROCEDURE sp_obtener_articulos()
+BEGIN
+    SELECT prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible
+    FROM producto NATURAL JOIN articulo;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS sp_obtener_servicios;
+DELIMITER //
+CREATE PROCEDURE sp_obtener_servicios()
+BEGIN
+    SELECT prod_id, serv_nombre, prod_precio, act_nombre
+    FROM producto
+    NATURAL JOIN servicio
+    NATURAL JOIN actor;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS sp_eliminar_articulo;
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_articulo(IN p_prod_id INT)
+BEGIN
+    DELETE FROM articulo WHERE prod_id = p_prod_id;
+    -- Aquí podrías agregar más lógica si quieres borrar registros relacionados o lanzar errores si hay dependencias
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS sp_eliminar_servicio;
+DELIMITER //
+CREATE PROCEDURE sp_eliminar_servicio(IN p_prod_id INT)
+BEGIN
+    DELETE FROM servicio WHERE prod_id = p_prod_id;
+    -- Aquí también puedes dejar que un TRIGGER se encargue de limpiar referencias en tablas relacionadas si es necesario.
+END //
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS sp_buscar_articulos_por_tipo;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_articulos_por_tipo(IN p_tipo_busqueda VARCHAR(100))
+BEGIN
+    SELECT 
+        prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible
+    FROM 
+        producto 
+    NATURAL JOIN 
+        articulo
+    WHERE 
+        art_tipo LIKE CONCAT('%', p_tipo_busqueda, '%');
+END //
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS sp_buscar_articulos_por_marca;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_articulos_por_marca(IN p_marca_busqueda VARCHAR(100))
+BEGIN
+    SELECT 
+        prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible
+    FROM 
+        producto 
+    NATURAL JOIN 
+        articulo
+    WHERE 
+        art_marca LIKE CONCAT('%', p_marca_busqueda, '%');
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_buscar_articulos_por_modelo;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_articulos_por_modelo(IN p_modelo_busqueda VARCHAR(100))
+BEGIN
+    SELECT 
+        prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible
+    FROM 
+        producto 
+    NATURAL JOIN 
+        articulo
+    WHERE 
+        art_modelo LIKE CONCAT('%', p_modelo_busqueda, '%');
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_stock_critico;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_stock_critico()
+BEGIN
+    SELECT 
+        prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible
+    FROM 
+        producto 
+    NATURAL JOIN 
+        articulo
+    WHERE 
+        art_cantidad_disponible <= 10;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_sin_stock;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_sin_stock()
+BEGIN
+    SELECT 
+        prod_id, art_tipo, art_marca, art_modelo, prod_precio, art_cantidad_disponible
+    FROM 
+        producto 
+    NATURAL JOIN 
+        articulo
+    WHERE 
+        art_cantidad_disponible = 0;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_obtener_facturas_venta;
+DELIMITER //
+CREATE PROCEDURE sp_obtener_facturas_venta()
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN actor;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_buscar_factura_por_codigo;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_factura_por_codigo(IN p_fven_codigo INT)
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN actor
+    WHERE 
+        fven_codigo = p_fven_codigo;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS sp_buscar_facturas_por_fecha;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_facturas_por_fecha(IN p_fecha VARCHAR(20))
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN 
+        actor
+    WHERE 
+        fven_fecha LIKE p_fecha;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_buscar_facturas_por_intervalo;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_facturas_por_intervalo(IN p_fecha1 DATE, IN p_fecha2 DATE)
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN 
+        actor
+    WHERE 
+        fven_fecha BETWEEN LEAST(p_fecha1, p_fecha2) AND GREATEST(p_fecha1, p_fecha2);
+END //
+DELIMITER ;
+
+
+
+
+DROP PROCEDURE IF EXISTS sp_buscar_factura_por_documento;
+DELIMITER //
+CREATE PROCEDURE sp_buscar_factura_por_documento(IN p_documento VARCHAR(100))
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta 
+    NATURAL JOIN 
+        actor
+    WHERE 
+        act_documento LIKE CONCAT('%', p_documento, '%');
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_facturas_efectivo;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_facturas_efectivo()
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN actor
+    WHERE 
+        fven_metodo_pago LIKE '%efectivo%';
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_facturas_tarjeta;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_facturas_tarjeta()
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN actor
+    WHERE 
+        fven_metodo_pago LIKE '%tarjeta%';
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_filtrar_facturas_transferencia;
+DELIMITER //
+CREATE PROCEDURE sp_filtrar_facturas_transferencia()
+BEGIN
+    SELECT 
+        fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre
+    FROM 
+        factura_venta
+    NATURAL JOIN actor
+    WHERE 
+        fven_metodo_pago LIKE '%transferencia%';
+END //
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS sp_obtener_datos_cliente;
+DELIMITER //
+CREATE PROCEDURE sp_obtener_datos_cliente(IN p_documento VARCHAR(20))
+BEGIN
+    SELECT 
+        act_nombre, 
+        act_direccion, 
+        act_telefono, 
+        act_correo, 
+        act_estado_juridico
+    FROM actor
+    WHERE act_documento = p_documento;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_cargar_articulos_factura;
+DELIMITER //
+CREATE PROCEDURE sp_cargar_articulos_factura(IN p_codigo_factura VARCHAR(20))
+BEGIN
+    SELECT 
+        dfv.prod_id, 
+        art_tipo, 
+        art_marca, 
+        art_modelo, 
+        dfv_precio_unitario, 
+        dfv_cantidad, 
+        dfv_subtotal
+    FROM detalle_factura_venta AS dfv
+    JOIN articulo AS a ON dfv.prod_id = a.prod_id
+    WHERE dfv.fven_codigo = p_codigo_factura;
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS sp_cargar_servicios_factura;
+DELIMITER //
+CREATE PROCEDURE sp_cargar_servicios_factura(IN p_codigo_factura VARCHAR(20))
+BEGIN
+    SELECT  
+        dfv.prod_id, 
+        serv_nombre, 
+        prod_precio, 
+        act_nombre
+    FROM detalle_factura_venta AS dfv
+    JOIN servicio AS s ON dfv.prod_id = s.prod_id
+    JOIN producto AS p ON p.prod_id = s.prod_id
+    JOIN actor AS a ON s.act_documento = a.act_documento
+    WHERE dfv.fven_codigo = p_codigo_factura;
+END //
+DELIMITER ;
+
+
+
+
+
+
+
+
+
 
 
 

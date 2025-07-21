@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -118,12 +119,9 @@ public class VentasVerFacturasController {
 
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
-            // Usar
-                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
-                // ResultSet = stmt.executeQuery();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre from factura_venta natural join actor;");
+            
+            CallableStatement stmt = conn.prepareCall("{call sp_obtener_facturas_venta()}");
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Factura factura = new Factura(
@@ -152,15 +150,8 @@ public class VentasVerFacturasController {
         try {
             Connection conn = DataBaseConnection.getActiveConnection();
             
-            // Usar
-                // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
-                // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre "+
-            "from factura_venta natural join actor where fven_codigo = ?;"
-            );
+            CallableStatement stmt = conn.prepareCall("{call sp_buscar_factura_por_codigo(?)}");
             stmt.setInt(1, Integer.parseInt(txtCodigo.getText()));
-
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -191,12 +182,8 @@ public class VentasVerFacturasController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre "+
-            "from factura_venta natural join actor where fven_fecha LIKE ?;"
-            );
+            CallableStatement stmt = conn.prepareCall("{call sp_buscar_facturas_por_fecha(?)}");
             stmt.setString(1, txtFechaUnica.getText());
-            
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -227,16 +214,11 @@ public class VentasVerFacturasController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre from factura_venta natural join actor "+
-            "where fven_fecha between '?' and '?' or fven_fecha between '?' and '?'"
-            );
+            CallableStatement stmt = conn.prepareCall("{call sp_buscar_facturas_por_intervalo(?, ?)}");
             stmt.setString(1, txtFechaPrimera.getText());
             stmt.setString(2, txtFechaSegunda.getText());
-            stmt.setString(3, txtFechaSegunda.getText());
-            stmt.setString(4, txtFechaPrimera.getText());
-            
             ResultSet rs = stmt.executeQuery();
+
 
             while (rs.next()) {
                 Factura factura = new Factura(
@@ -266,12 +248,8 @@ public class VentasVerFacturasController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre "+
-            "from factura_venta natural join actor where act_documento LIKE ?;"
-            );
+            CallableStatement stmt = conn.prepareCall("{call sp_buscar_factura_por_documento(?)}");
             stmt.setString(1, txtDocumentoCliente.getText());
-            
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -308,12 +286,9 @@ public class VentasVerFacturasController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre "+
-            "from factura_venta natural join actor where fven_metodo_pago like '%efectivo%';"
-            );
-
+            CallableStatement stmt = conn.prepareCall("{call sp_filtrar_facturas_efectivo()}");
             ResultSet rs = stmt.executeQuery();
+
 
             while (rs.next()) {
                 Factura factura = new Factura(
@@ -342,12 +317,9 @@ public class VentasVerFacturasController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre "+
-            "from factura_venta natural join actor where fven_metodo_pago like '%tarjeta%';"
-            );
-
+            CallableStatement stmt = conn.prepareCall("{call sp_filtrar_facturas_tarjeta()}");
             ResultSet rs = stmt.executeQuery();
+
 
             while (rs.next()) {
                 Factura factura = new Factura(
@@ -377,12 +349,9 @@ public class VentasVerFacturasController {
             // Usar
                 // CallableStatement stmt = conn.prepareCall("{call obtener_clientes}");
                 // ResultSet = stmt.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement(
-            "select fven_codigo, fven_fecha, fven_total, fven_metodo_pago, act_documento, act_nombre "+
-            "from factura_venta natural join actor where fven_metodo_pago like '%transferencia%';"
-            );
-
+            CallableStatement stmt = conn.prepareCall("{CALL sp_filtrar_facturas_transferencia()}");
             ResultSet rs = stmt.executeQuery();
+
 
             while (rs.next()) {
                 Factura factura = new Factura(
