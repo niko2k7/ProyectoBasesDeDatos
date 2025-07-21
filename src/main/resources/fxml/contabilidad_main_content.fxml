@@ -7,7 +7,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Bienvenido/a al sistema de VENTAS" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Bienvenido/a al sistema de CONTABILIDAD" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="32.0" />
          </font>

@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,11 +49,11 @@ public class VentasClientesController {
     @FXML private TextField actualizarClienteCorreo;
     @FXML private TextField actualizarClienteEstadoJuridico;
 
-
+    @FXML private Label messageLabel;
+    @FXML private Label messageLabel1;
 
     private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     
-
     @FXML
     public void initialize() {
         configurarColumnas();
@@ -163,8 +164,11 @@ public class VentasClientesController {
         crearClienteTelefono.clear();
         crearClienteCorreo.clear();
         crearClienteEstadoJuridico.clear();
+        messageLabel.setVisible(false);
 
     } catch (Exception e) {
+        messageLabel.setVisible(true);
+        messageLabel.setText("INGRESE LOS DATOS CORRECTAMENTE.");
         e.printStackTrace();
     }
     }
@@ -202,8 +206,10 @@ public class VentasClientesController {
             actualizarClienteTelefono.clear();
             actualizarClienteCorreo.clear();
             actualizarClienteEstadoJuridico.clear();
-
+            messageLabel1.setVisible(false);
         } catch (Exception e) {
+            messageLabel1.setVisible(true);
+            messageLabel1.setText("INGRESE LOS DATOS CORRECTAMENTE");
             e.printStackTrace();
         }
     }
@@ -215,10 +221,14 @@ public class VentasClientesController {
             stmt.setInt(1, Integer.parseInt(cliente.getDocumento()));
             stmt.executeUpdate();
             // llamar trigger que borre lo relacionado al servicio, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
-            System.out.println("Cliente eliminado correctamente");
+            messageLabel.setVisible(false);
+            messageLabel1.setVisible(false);
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
-            System.out.println("Intento de borrado un cliente sin los permisos necesarios.");
+            messageLabel.setVisible(true);
+            messageLabel.setText("NO TIENE PERMISOS PARA BORRAR.");
+            messageLabel1.setVisible(true);
+            messageLabel1.setText("NO TIENE PERMISOS PARA BORRAR.");
         }
     }
 }

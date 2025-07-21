@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,6 +45,8 @@ public class VentasProductosController {
 
     private ObservableList<Articulo> listaArticulos = FXCollections.observableArrayList();
     private ObservableList<Servicio> listaServicios = FXCollections.observableArrayList();
+
+    @FXML private Label messageLabel;
 
     @FXML
     public void initialize() {
@@ -228,9 +231,11 @@ public class VentasProductosController {
             stmt.setInt(1, Integer.parseInt(articulo.getId()));
             stmt.execute();
             // llamar trigger que borre lo relacionado al articulo, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
+            messageLabel.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Intento de borrado un articulo sin los permisos necesarios.");
+            messageLabel.setVisible(true);
+            messageLabel.setText("NO TIENE PERMISO PARA BORRAR");
         }
     }
 
@@ -241,10 +246,11 @@ public class VentasProductosController {
             stmt.setInt(1, Integer.parseInt(servicio.getId()));
             stmt.execute();
             // llamar trigger que borre lo relacionado al servicio, pero no dejará porque es interfaz de ventas y no tiene permiso de borrado
-            
+            messageLabel.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Intento de borrado un servicio sin los permisos necesarios.");
+            messageLabel.setVisible(true);
+            messageLabel.setText("NO TIENE PERMISO PARA BORRAR");
         }
     }
 
@@ -274,8 +280,11 @@ public class VentasProductosController {
 
             tablaArticulos.setItems(listaArticulos);
             txtBuscarArticuloTipo.clear();
+            messageLabel.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
+            messageLabel.setVisible(true);
+            messageLabel.setText("VALOR INVÁLIDO");
         }
     }
 
@@ -306,8 +315,11 @@ public class VentasProductosController {
 
             tablaArticulos.setItems(listaArticulos);
             txtBuscarArticuloMarca.clear();
+            messageLabel.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
+            messageLabel.setVisible(true);
+            messageLabel.setText("VALOR INVÁLIDO");
         }
     }
 
@@ -340,8 +352,12 @@ public class VentasProductosController {
 
             tablaArticulos.setItems(listaArticulos);
             txtBuscarArticuloModelo.clear();
+
+            messageLabel.setVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
+            messageLabel.setVisible(true);
+            messageLabel.setText("VALOR INVÁLIDO");
         }
     }
 

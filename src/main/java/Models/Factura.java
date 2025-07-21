@@ -26,5 +26,4 @@ public class Factura {
     public String getDocumentoCliente() { return documentoCliente; }  
     public String getNombreCliente() { return nombreCliente; }
 
-
 }

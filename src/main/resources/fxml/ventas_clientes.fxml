@@ -102,7 +102,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Label fx:id="messageLabel11" visible="false">
+                  <Label fx:id="messageLabel" prefHeight="18.0" prefWidth="284.0" visible="false">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
