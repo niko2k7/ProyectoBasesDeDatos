@@ -74,5 +74,5 @@ Docente: Elizabeth León Guzmán
 ## Enlaces Proyecto
 
 - Diagrama E/R: https://drive.google.com/file/d/19II5D9yWAxw-oznzSZEqxWfiEuNnxBIC/view?usp=drivesdk
-- Diseños en Figma: https://www.figma.com/design/QDuVCQTQv1b96pptmbenAm/Interfaz-proyecto-bases?node-id=0-1&t=zmUyUyV1Ts8RLNPs-1
+- Diseños en Figma: [https://www.figma.com/design/QDuVCQTQv1b96pptmbenAm/Interfaz-proyecto-bases?node-id=0-1&t=zmUyUyV1Ts8RLNPs-1](https://www.figma.com/design/AwCyEXSNSG0Zb3FHgCwlaY/Sin-t%C3%ADtulo?node-id=1-2&t=EEid6bXSIDZ4JV1z-1)
 - Video explicativo: https://drive.google.com/file/d/1KMv_0GHxHoyV7ITeG7rZxQtDtQ3yfWVk/view?usp=sharing
